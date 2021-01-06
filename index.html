@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>무작위 자리 뽑기</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>무작위 자리 뽑기</h1>
+      <div class="col_input">
+        <label for="col" id="col_label"></label>
+        <input type="range" name="col" id="col" min="1" max="10" value="4" />
+      </div>
+      <div class="row_input">
+        <label for="row" id="row_label"></label>
+        <input type="range" name="row" id="row" min="1" max="10" value="5" />
+      </div>
+      <div class="num_form none">
+        <label for="num_input">번호 맞춤 설정</label>
+        <input
+          type="text"
+          name="num_input"
+          id="num_input"
+          placeholder="예: 1-5, 8, 11-13"
+        />
+      </div>
+      <div class="btn">
+        <button id="num_btn">번호 맞춤 설정</button>
+        <button id="del_btn">없는 자리 설정</button>
+        <button id="pick_btn">뽑기!</button>
+      </div>
+    </div>
+    <div id="container"></div>
+  </body>
+</html>

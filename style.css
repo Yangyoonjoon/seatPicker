@@ -1,0 +1,121 @@
+body,
+ul {
+  margin: 0;
+  padding: 0;
+  font-family: "BMEuljiro10yearslater";
+}
+
+body {
+  background-color: rgba(250, 230, 150, 0.3);
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@font-face {
+  font-family: "BMEuljiro10yearslater";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/BMEuljiro10yearslater.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1 {
+  font-size: 50px;
+  margin: 30px;
+}
+
+li {
+  list-style-type: none;
+}
+
+.none {
+  display: none;
+}
+
+.delete {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.seat_btn {
+  border: none;
+  background: none;
+  font-size: 20px;
+}
+
+input[type="range"] {
+  width: 200px;
+}
+
+#container {
+  margin-top: 20px;
+  padding: 5px;
+}
+
+.line {
+  display: flex;
+}
+
+.seat {
+  flex-grow: 1;
+  flex-basis: 30px;
+  flex-shrink: 0;
+  height: 60px;
+  border: 1px solid rgba(0, 0, 0, 0.7);
+  margin: 3px;
+  background-color: rgba(170, 120, 30, 0.4);
+}
+
+.btn {
+  margin-top: 15px;
+}
+
+#del_btn,
+#num_btn {
+  font-family: "BMEuljiro10yearslater";
+  font-size: 20px;
+  height: 40px;
+  border-radius: 4px;
+  border: none;
+  background-color: #fff;
+  box-shadow: -1px -1px 1px 1px #999;
+}
+
+#del_btn:focus,
+.seat_btn:focus,
+#num_btn:focus,
+#pick_btn:focus {
+  outline: none;
+}
+
+.num_form {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+#num_input {
+  height: 20px;
+  background-color: #fff;
+  border-color: #fff;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.col_input,
+.row_input {
+  font-size: 17px;
+}
+
+#pick_btn {
+  font-family: "BMEuljiro10yearslater";
+  font-size: 18px;
+  background-color: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  box-shadow: -1px -1px 1px 1px #999;
+}
