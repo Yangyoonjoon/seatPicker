@@ -1,2 +1,3 @@
-# seatPicker
+# SeatPicker
+
 Random seat draw machine

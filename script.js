@@ -8,11 +8,14 @@ const col = document.getElementById("col"),
   numBtn = document.getElementById("num_btn"),
   numForm = document.querySelector(".num_form"),
   numInput = document.getElementById("num_input"),
-  pickBtn = document.getElementById("pick_btn");
+  pickBtn = document.getElementById("pick_btn"),
+  seatCnt = document.getElementById("seat_cnt");
 
 const NONE = "none";
 const DEL = "delete";
 const DISABLED = "disabled";
+const RETRY = "retry";
+const CHANGE = "change";
 
 let isDelStart = false;
 let isNumSetting = false;
@@ -34,6 +37,11 @@ function CustomizationNumList(data) {
       if (slashIdx != -1) {
         firstNum = sliceData.slice(0, slashIdx);
         lastNum = sliceData.slice(slashIdx + 1, sliceData.length);
+
+        // "-" 뒤에 "-"가 또 있을 경우 뽑기 못함
+        if (lastNum.indexOf("-") != -1 || !lastNum) {
+          return [0];
+        }
 
         for (let i = 0; i < lastNum - firstNum + 1; i++) {
           num = Number(firstNum) + i;
@@ -81,6 +89,8 @@ function chooseDelSeat() {
       seatBtns[i].classList.remove(NONE);
       seatBtns[i].addEventListener("click", deleteSeat);
     }
+    // 없는 자리 설정을 할 때 마다 반응형으로 구성
+    responsive();
   }
 }
 
@@ -96,6 +106,7 @@ function deleteSeat(event) {
   } else {
     deleteList.push(seat.id);
   }
+  countSeat();
 }
 
 function createSeat(colValue, rowValue) {
@@ -116,15 +127,12 @@ function createSeat(colValue, rowValue) {
       seat.className = "seat";
 
       // 각각의 seat 변수의 자식요소
-      let span = document.createElement("span");
       let delBtn = document.createElement("button");
       delBtn.innerText = "❌";
       delBtn.className = "seat_btn";
       delBtn.classList.add(NONE);
 
-      seat.appendChild(span);
       seat.appendChild(delBtn);
-
       line.appendChild(seat);
     }
     lineArray.push(line);
@@ -141,11 +149,14 @@ function paintSeat(lineArray) {
   for (let r = 0; r < lineArray.length; r++) {
     container.appendChild(lineArray[r]);
   }
+  // paint를 새로 할 때 마다 반응형으로 구성
+  responsive();
 }
 
 function countRange(colValue, rowValue) {
   colLabel.innerText = `열 ${colValue}개`;
   rowLabel.innerText = `행 ${rowValue}개`;
+  countSeat();
 }
 
 function rangeChange() {
@@ -195,32 +206,42 @@ function handlePickBtn() {
     let input = numInput.value.replaceAll(" ", "");
     let isNumber = checkNumInput(input);
 
-    if (!isNumber) {
-      alert("맞춤 설정 오류");
+    if (isDelStart) {
+      alert("없는 자리 설정을 완료해주세요");
     } else {
-      if (isDelStart) {
-        alert("없는 자리 설정을 완료해주세요");
-      } else {
-        // 번호 맞춤 설정을 했을때만 numList를 받는다
-        if (isNumSetting && input != "") {
-          numList = CustomizationNumList(input);
+      // 번호 맞춤 설정을 했을때만 numList를 받는다
+      if (isNumSetting && input != "") {
+        numList = CustomizationNumList(input);
 
-          let colValue = col.value;
-          let rowValue = row.value;
-          let seatCnt = colValue * rowValue - deleteList.length;
-          if (numList.length != seatCnt) {
-            alert(
-              `맞춤 설정(${numList.length}개)과 자리 개수(${seatCnt}개)를 맞춰주세요`
-            );
-          } else {
-            disabled();
-            pickRandomNum(numList);
+        let colValue = col.value;
+        let rowValue = row.value;
+        let seatCnt = colValue * rowValue - deleteList.length;
+
+        // ","로 공백을 나눌때 생긴 0이 있을 경우 isNumber를 false로 만들어 경고창을 뛰운다
+        // numList로 [0]이 들어왔을 경우도 여기서 걸러짐
+        for (let i = 0; i < numList.length; i++) {
+          if (numList[i] == 0) {
+            isNumber = false;
+            break;
           }
+        }
+
+        if (!isNumber) {
+          alert(
+            "맞춤 설정 오류 \n(숫자만 입력하였는지 또는 ',' '-' 기호를 제대로 사용했는지 확인!)"
+          );
+        } else if (numList.length != seatCnt) {
+          alert(
+            `맞춤 설정(${numList.length}개)과 자리 개수(${seatCnt}개)를 맞춰주세요`
+          );
         } else {
-          numList = notCustomizationNumList();
           disabled();
           pickRandomNum(numList);
         }
+      } else {
+        numList = notCustomizationNumList();
+        disabled();
+        pickRandomNum(numList);
       }
     }
   }
@@ -242,6 +263,74 @@ function pickRandomNum(numList) {
   for (let i = 0; i < randomIdxList.length; i++) {
     randomNumList.push(numList[randomIdxList[i]]);
   }
+  createRandomSeat(randomNumList);
+}
+
+// createSeat 함수 재활용
+function createRandomSeat(numList) {
+  // row를 담아둘 배열
+  let lineArray = [];
+
+  let colValue = col.value;
+  let rowValue = row.value;
+
+  // col과 row를 이차원으로 저장하기 위한 이중반복문
+  for (let r = 1; r <= rowValue; r++) {
+    // row 한줄에 해당하는 변수
+    let line = document.createElement("ul");
+    line.id = `row${r}`;
+    line.className = "line";
+
+    for (let c = 1; c <= colValue; c++) {
+      // col 하나에 해당하는 변수
+      let seat = document.createElement("li");
+      seat.id = `${r},${c}`;
+      seat.className = "seat";
+
+      // 각각의 seat 변수의 자식요소
+      let span = document.createElement("span");
+      span.className = "random_num";
+
+      // 삭제된 seat가 아니면 true 랜덤 숫자 작성
+      if (deleteList.indexOf(seat.id) == -1) {
+        span.innerText = numList[0];
+        numList = numList.slice(1, numList.length);
+      } else {
+        seat.classList.add(DEL);
+      }
+
+      seat.appendChild(span);
+      line.appendChild(seat);
+    }
+    lineArray.push(line);
+  }
+
+  // 뽑기 효과
+  pickBtn.classList.add(RETRY);
+  pickBtn.innerText = "3";
+  setTimeout(() => {
+    pickBtn.innerText = "2";
+    setTimeout(() => {
+      pickBtn.innerText = "1";
+    }, 1000);
+    setTimeout(() => {
+      setTimeout(() => {
+        paintSeat(lineArray);
+        pickBtn.innerText = "다시!";
+        // 다시하기 버튼 이벤트 연결
+        pickBtn.addEventListener("click", handleRetry);
+      }, 1000);
+    }, 1000);
+  }, 1000);
+}
+
+function handleRetry() {
+  disabled();
+  pickBtn.classList.remove(RETRY);
+  pickBtn.innerText = "뽑기!";
+  pickBtn.removeEventListener("click", handleRetry);
+
+  init();
 }
 
 function disabled() {
@@ -253,7 +342,43 @@ function disabled() {
     numInput.setAttribute(DISABLED, "");
     col.setAttribute(DISABLED, "");
     row.setAttribute(DISABLED, "");
+  } else {
+    isPickStart = false;
+    delBtn.removeAttribute(DISABLED);
+    numBtn.removeAttribute(DISABLED);
+    numInput.removeAttribute(DISABLED);
+    col.removeAttribute(DISABLED);
+    row.removeAttribute(DISABLED);
   }
+}
+
+function responsive() {
+  let colValue = col.value;
+  if (isDelStart) {
+    let items = document.getElementsByClassName("seat_btn");
+    for (let i = 0; i < items.length; i++) {
+      // 반응형을 위한 class 추가
+      items[i].classList.add(`btn_col${colValue}`);
+    }
+  } else if (isPickStart) {
+    let items = document.getElementsByClassName("random_num");
+    for (let i = 0; i < items.length; i++) {
+      // 반응형을 위한 class 추가
+      items[i].classList.add(`num_col${colValue}`);
+    }
+  }
+}
+
+function countSeat() {
+  let colValue = col.value;
+  let rowValue = row.value;
+  let cnt = colValue * rowValue - deleteList.length;
+
+  seatCnt.innerText = cnt;
+  seatCnt.classList.remove(CHANGE);
+  setTimeout(() => {
+    seatCnt.classList.add(CHANGE);
+  }, 1);
 }
 
 function init() {
@@ -270,5 +395,3 @@ function init() {
 }
 
 init();
-
-// 1-5, 8,10, 13-15   , 20, 22 - 2 4

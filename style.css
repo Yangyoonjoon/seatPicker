@@ -26,6 +26,12 @@ body {
 h1 {
   font-size: 50px;
   margin: 30px;
+  transition: all 0.4s;
+  white-space: nowrap;
+}
+
+span {
+  font-size: 45px;
 }
 
 li {
@@ -43,7 +49,14 @@ li {
 .seat_btn {
   border: none;
   background: none;
-  font-size: 20px;
+  font-size: 30px;
+  padding: 0;
+  transition: all 0.4s;
+}
+
+.random_num {
+  font-size: 30px;
+  transition: all 0.4s;
 }
 
 input[type="range"] {
@@ -65,8 +78,12 @@ input[type="range"] {
   flex-shrink: 0;
   height: 60px;
   border: 1px solid rgba(0, 0, 0, 0.7);
-  margin: 3px;
   background-color: rgba(170, 120, 30, 0.4);
+  margin: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.4s;
 }
 
 .btn {
@@ -77,11 +94,18 @@ input[type="range"] {
 #num_btn {
   font-family: "BMEuljiro10yearslater";
   font-size: 20px;
-  height: 40px;
+  padding: 10px;
   border-radius: 4px;
   border: none;
   background-color: #fff;
   box-shadow: -1px -1px 1px 1px #999;
+  transition: all 0.4s;
+}
+
+#del_btn:hover,
+#num_btn:hover,
+#pick_btn:hover {
+  background-color: rgba(170, 120, 30, 0.2);
 }
 
 #del_btn:focus,
@@ -113,9 +137,242 @@ input[type="range"] {
   font-family: "BMEuljiro10yearslater";
   font-size: 18px;
   background-color: #fff;
+  padding: 0;
   width: 50px;
   height: 50px;
   border-radius: 50%;
   border: none;
   box-shadow: -1px -1px 1px 1px #999;
+  transition: all 0.4s;
+  white-space: nowrap;
+}
+
+.retry {
+  animation: retry 1s infinite;
+  transition: all 0.4s;
+}
+
+.change {
+  animation: change 0.5s;
+}
+
+@keyframes change {
+  0% {
+    color: black;
+  }
+  50% {
+    color: gold;
+  }
+  100% {
+    color: black;
+  }
+}
+
+@-moz-keyframes change {
+  0% {
+    color: black;
+  }
+  50% {
+    color: gold;
+  }
+  100% {
+    color: black;
+  }
+}
+
+@-webkit-keyframes change {
+  0% {
+    color: black;
+  }
+  50% {
+    color: gold;
+  }
+  100% {
+    color: black;
+  }
+}
+
+@keyframes retry {
+  0% {
+    background-color: #fff;
+  }
+
+  50% {
+    background-color: gold;
+  }
+
+  100% {
+    background-color: #fff;
+  }
+}
+
+@-moz-keyframes retry {
+  0% {
+    background-color: #fff;
+  }
+
+  50% {
+    background-color: gold;
+  }
+
+  100% {
+    background-color: #fff;
+  }
+}
+
+@-webkit-keyframes retry {
+  0% {
+    background-color: #fff;
+  }
+
+  50% {
+    background-color: gold;
+  }
+
+  100% {
+    background-color: #fff;
+  }
+}
+
+@media (min-height: 950px) {
+  h1 {
+    font-size: 70px;
+  }
+  span {
+    font-size: 63px;
+  }
+  .col_input,
+  .row_input,
+  .num_form {
+    zoom: 1.5;
+  }
+  #del_btn,
+  #num_btn {
+    font-size: 30px;
+    margin-top: 20px;
+    padding: 15px;
+  }
+  #pick_btn {
+    width: 75px;
+    height: 75px;
+    font-size: 30px;
+  }
+}
+
+@media (min-height: 1250px) {
+  h1 {
+    font-size: 100px;
+  }
+  span {
+    font-size: 90px;
+  }
+  .col_input,
+  .row_input,
+  .num_form {
+    zoom: 2;
+  }
+  #del_btn,
+  #num_btn {
+    font-size: 40px;
+    margin-top: 20px;
+    padding: 15px;
+  }
+  #pick_btn {
+    width: 100px;
+    height: 100px;
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .num_col10,
+  .num_col9 {
+    font-size: 25px !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .btn_col10,
+  .num_col8,
+  .num_col7 {
+    font-size: 25px !important;
+  }
+  .num_col10 {
+    font-size: 20px !important;
+  }
+}
+
+@media (max-width: 450px) {
+  .btn_col9 {
+    font-size: 25px !important;
+  }
+  .num_col9 {
+    font-size: 20px !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .btn_col10,
+  .num_col8 {
+    font-size: 20px !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .btn_col9,
+  .num_col7 {
+    font-size: 20px !important;
+  }
+  .btn_col8,
+  .num_col6 {
+    font-size: 25px !important;
+  }
+  h1 {
+    font-size: 40px;
+  }
+  span {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 350px) {
+  .btn_col8,
+  .num_col6 {
+    font-size: 20px !important;
+  }
+  .btn_col7,
+  .num_col5 {
+    font-size: 25px !important;
+  }
+}
+
+@media (max-width: 300px) {
+  .btn_col7,
+  .num_col5 {
+    font-size: 20px !important;
+  }
+  .btn_col6,
+  .num_col4 {
+    font-size: 25px !important;
+  }
+}
+
+@media (max-width: 260px) {
+  .btn_col6,
+  .num_col4 {
+    font-size: 20px !important;
+  }
+  .btn_col5 {
+    font-size: 25px !important;
+  }
+}
+
+@media (max-width: 220px) {
+  .btn_col5 {
+    font-size: 20px !important;
+  }
+  .btn_col4,
+  .num_col3 {
+    font-size: 25px !important;
+  }
 }
