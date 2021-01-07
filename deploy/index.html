@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <meta
+      name="naver-site-verification"
+      content="9b035bdd571d863dfeff6d844a20b735cbf9a4bf"
+    />
+    <link rel="canonical" href="https://seatpicker.netlify.app/" />
+    <meta
+      name="description"
+      content="랜덤 자리 뽑기 프로그램입니다. 간편하게 자리를 정해보세요!"
+    />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>무작위 자리 뽑기</title>
+    <meta name="title" content="무작위 자리 뽑기" />
+    <meta
+      name="subject"
+      content="랜덤 자리 뽑기 프로그램입니다. 간편하게 자리를 정해보세요!"
+    />
+    <meta
+      name="keywords"
+      content="무작위 자리 뽑기, 랜덤 자리 뽑기, 자리뽑기, 번호뽑기, 우리반자리뽑기, 랜덤 뽑기, 숫자랜덤뽑기, 랜덤 번호 뽑기, 뽑기"
+    />
+    <meta name="author" content="yyj" />
+    <meta property="og:url" content="https://seatpicker.netlify.app/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="무작위 자리 뽑기" />
+    <meta
+      property="og:description"
+      content="랜덤 자리 뽑기 프로그램입니다. 간편하게 자리를 정해보세요!"
+    />
+    <meta property="og:image" content="img/favicon.png" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>무작위 <span id="seat_cnt"></span>자리 뽑기</h1>
+      <div class="col_input">
+        <label for="col" id="col_label"></label>
+        <input type="range" name="col" id="col" min="1" max="10" value="5" />
+      </div>
+      <div class="row_input">
+        <label for="row" id="row_label"></label>
+        <input type="range" name="row" id="row" min="1" max="10" value="6" />
+      </div>
+      <div class="num_form none">
+        <label for="num_input">번호 맞춤 설정</label>
+        <input
+          type="text"
+          name="num_input"
+          id="num_input"
+          placeholder="예: 1-5, 8, 11-13"
+        />
+      </div>
+      <div class="btn">
+        <button id="num_btn">번호 맞춤 설정</button>
+        <button id="del_btn">없는 자리 설정</button>
+        <button id="pick_btn">뽑기!</button>
+      </div>
+    </div>
+    <div id="container"></div>
+    <br />
+    <section class="ad">
+      <div class="ad_banner">
+        <ins
+          class="kakao_ad_area"
+          style="display: none"
+          data-ad-unit="DAN-TNGrdc7azIzfzWog"
+          data-ad-width="320"
+          data-ad-height="100"
+        ></ins>
+      </div>
+      <div class="ad_banner">
+        <ins
+          class="kakao_ad_area"
+          style="display: none"
+          data-ad-unit="DAN-Vt5UVoaxiMXTw7Xi"
+          data-ad-width="320"
+          data-ad-height="100"
+        ></ins>
+      </div>
+      <div class="ad_banner">
+        <ins
+          class="kakao_ad_area"
+          style="display: none"
+          data-ad-unit="DAN-5W7yAvsPLlJgehVC"
+          data-ad-width="320"
+          data-ad-height="100"
+        ></ins>
+      </div>
+      <div class="ad_banner">
+        <ins
+          class="kakao_ad_area"
+          style="display: none"
+          data-ad-unit="DAN-LAbgRjJoPD4GmM1Z"
+          data-ad-width="320"
+          data-ad-height="100"
+        ></ins>
+      </div>
+    </section>
+    <script
+      type="text/javascript"
+      src="//t1.daumcdn.net/kas/static/ba.min.js"
+      async
+    ></script>
+  </body>
+</html>
