@@ -23,14 +23,14 @@ body {
   font-style: normal;
 }
 
-h1 {
+.title {
   font-size: 50px;
   margin: 30px;
   transition: all 0.4s;
   white-space: nowrap;
 }
 
-span {
+#seat_cnt {
   font-size: 45px;
 }
 
@@ -39,14 +39,15 @@ li {
 }
 
 .none {
-  display: none;
+  display: none !important;
 }
 
 .delete {
   background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
-.seat_btn {
+.seat_btn,
+.manual_seat_btn {
   border: none;
   background: none;
   font-size: 30px;
@@ -86,12 +87,19 @@ input[type="range"] {
   transition: all 0.4s;
 }
 
-.btn {
+.btns {
   margin-top: 15px;
 }
 
+.btn:active {
+  transform: scale(0.9);
+}
+
 #del_btn,
-#num_btn {
+#num_btn,
+#manual_num_btn,
+#manual_del_btn,
+#chat_btn {
   font-family: "BMEuljiro10yearslater";
   font-size: 20px;
   padding: 10px;
@@ -104,23 +112,34 @@ input[type="range"] {
 
 #del_btn:hover,
 #num_btn:hover,
-#pick_btn:hover {
+#pick_btn:hover,
+#manual_num_btn:hover,
+#manual_del_btn:hover,
+#manual_pick_btn:hover {
   background-color: rgba(170, 120, 30, 0.2);
 }
 
 #del_btn:focus,
 .seat_btn:focus,
 #num_btn:focus,
-#pick_btn:focus {
+#pick_btn:focus,
+#manual_btn:focus,
+#manual_num_btn:focus,
+#manual_del_btn:focus,
+#manual_pick_btn:focus,
+.manual_seat_btn:focus,
+#chat_btn:focus {
   outline: none;
 }
 
-.num_form {
+.num_form,
+.manual_num_form {
   margin-top: 10px;
   font-size: 18px;
 }
 
-#num_input {
+#num_input,
+#manual_num_input {
   height: 20px;
   background-color: #fff;
   border-color: #fff;
@@ -133,7 +152,9 @@ input[type="range"] {
   font-size: 17px;
 }
 
-#pick_btn {
+#pick_btn,
+#manual_btn,
+#manual_pick_btn {
   font-family: "BMEuljiro10yearslater";
   font-size: 18px;
   background-color: #fff;
@@ -169,6 +190,98 @@ input[type="range"] {
 .ad_banner {
   width: 320px;
   margin: 0 auto;
+}
+
+#disqus_thread {
+  padding: 0 10px;
+}
+
+#manual_btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10000;
+}
+
+#manual_btn:hover {
+  background-color: gold;
+}
+
+#manual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 85%;
+  margin: 0 auto;
+  border: 2px solid rgba(170, 120, 30, 0.8);
+  margin-top: 30px;
+}
+
+#manual ul {
+  width: 90%;
+}
+
+#manual ul,
+#manual li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#manual li {
+  width: fit-content;
+  margin-bottom: 30px;
+}
+
+.manual_title,
+.chat_title {
+  font-size: 35px;
+  margin: 20px;
+  transition: all 0.4s;
+  white-space: nowrap;
+}
+
+.manual_important {
+  color: red;
+}
+
+.manual_num_form {
+  margin-bottom: 20px;
+}
+
+.manual_seat {
+  width: 150px;
+  height: 60px;
+  border: 1px solid rgba(0, 0, 0, 0.7);
+  background-color: rgba(170, 120, 30, 0.4);
+  margin-top: 20px;
+  transition: all 0.4s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+p {
+  font-size: 20px;
+}
+
+#chat {
+  margin-top: 50px;
+}
+
+.chat_title {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+#chat_btn {
+  margin-top: 10px;
+  animation: retry 1s infinite;
+}
+
+.copyright {
+  text-align: center;
+  margin: 10px 0;
 }
 
 @media (max-width: 720px) {
@@ -259,52 +372,70 @@ input[type="range"] {
 }
 
 @media (min-height: 950px) {
-  h1 {
+  .title {
     font-size: 70px;
   }
-  span {
+  #seat_cnt {
     font-size: 63px;
   }
   .col_input,
   .row_input,
-  .num_form {
+  .num_form,
+  .manual_num_form,
+  .manual_col_input,
+  .manual_row_input {
     zoom: 1.5;
   }
   #del_btn,
-  #num_btn {
+  #num_btn,
+  #manual_num_btn,
+  #manual_del_btn {
     font-size: 30px;
     margin-top: 20px;
     padding: 15px;
   }
-  #pick_btn {
+  #pick_btn,
+  #manual_pick_btn {
     width: 75px;
     height: 75px;
     font-size: 30px;
   }
+  p {
+    font-size: 25px;
+  }
 }
 
 @media (min-height: 1250px) {
-  h1 {
+  .title {
     font-size: 100px;
   }
-  span {
+  #seat_cnt {
     font-size: 90px;
   }
   .col_input,
   .row_input,
-  .num_form {
+  .num_form,
+  .manual_num_form,
+  .manual_col_input,
+  .manual_row_input {
     zoom: 2;
   }
   #del_btn,
-  #num_btn {
+  #num_btn,
+  #manual_num_btn,
+  #manual_del_btn {
     font-size: 40px;
     margin-top: 20px;
     padding: 15px;
   }
-  #pick_btn {
+  #pick_btn,
+  #manual_pick_btn {
     width: 100px;
     height: 100px;
     font-size: 40px;
+  }
+  p {
+    font-size: 30px;
   }
 }
 
@@ -351,10 +482,10 @@ input[type="range"] {
   .num_col6 {
     font-size: 25px !important;
   }
-  h1 {
+  .title {
     font-size: 40px;
   }
-  span {
+  #seat_cnt {
     font-size: 36px;
   }
 }

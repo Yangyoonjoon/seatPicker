@@ -86,8 +86,12 @@ input[type="range"] {
   transition: all 0.4s;
 }
 
-.btn {
+.btns {
   margin-top: 15px;
+}
+
+.btn:active {
+  transform: scale(0.95);
 }
 
 #del_btn,

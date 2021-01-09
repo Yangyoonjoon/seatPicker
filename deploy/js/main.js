@@ -9,7 +9,11 @@ const col = document.getElementById("col"),
   numForm = document.querySelector(".num_form"),
   numInput = document.getElementById("num_input"),
   pickBtn = document.getElementById("pick_btn"),
-  seatCnt = document.getElementById("seat_cnt");
+  seatCnt = document.getElementById("seat_cnt"),
+  manualBtn = document.getElementById("manual_btn"),
+  manual = document.getElementById("manual"),
+  chatBtn = document.getElementById("chat_btn"),
+  chat = document.getElementById("chat");
 
 const NONE = "none";
 const DEL = "delete";
@@ -107,6 +111,7 @@ function createSeat(colValue, rowValue) {
       delBtn.innerText = "❌";
       delBtn.className = "seat_btn";
       delBtn.classList.add(NONE);
+      delBtn.classList.add("btn");
       seat.appendChild(delBtn);
       line.appendChild(seat);
     }
@@ -168,7 +173,16 @@ function checkNumInput(input) {
 
 function handlePickBtn() {
   if (!isPickStart) {
-    let input = numInput.value.replaceAll(" ", "");
+    // let input = numInput.value.replaceAll(" ", "");
+    let input = numInput.value;
+    while (true) {
+      newInput = input.replace(" ", "");
+      if (newInput === input) {
+        break;
+      } else {
+        input = newInput;
+      }
+    }
     let isNumber = checkNumInput(input);
 
     if (isDelStart) {
@@ -260,6 +274,8 @@ function createRandomSeat(numList) {
         paintSeat(lineArray);
         pickBtn.innerText = "다시!";
         pickBtn.addEventListener("click", handleRetry);
+        pickBtn.classList.remove(RETRY);
+        chatBtn.classList.remove(NONE);
       }, 1000);
     }, 1000);
   }, 1000);
@@ -317,13 +333,27 @@ function countSeat() {
   }, 100);
 }
 
+function scrollToManual() {
+  let location = manual.offsetTop;
+  scrollTo({ top: location, behavior: "smooth" });
+}
+
+function scrollToChat() {
+  let location = chat.offsetTop;
+  scrollTo({ top: location, behavior: "smooth" });
+  chatBtn.classList.add(NONE);
+  pickBtn.classList.add(RETRY);
+}
+
 function init() {
   rangeChange();
   col.onchange = rangeChange;
   row.onchange = rangeChange;
-  delBtn.addEventListener("click", chooseDelSeat);
   numBtn.addEventListener("click", handleNumBtn);
+  delBtn.addEventListener("click", chooseDelSeat);
   pickBtn.addEventListener("click", handlePickBtn);
+  manualBtn.addEventListener("click", scrollToManual);
+  chatBtn.addEventListener("click", scrollToChat);
 }
 
 init();

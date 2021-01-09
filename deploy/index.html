@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/main.js" defer></script>
+    <script src="js/manual.js" defer></script>
     <meta
       name="naver-site-verification"
       content="9b035bdd571d863dfeff6d844a20b735cbf9a4bf"
@@ -12,7 +13,7 @@
     <link rel="canonical" href="https://seatpicker.netlify.app/" />
     <meta
       name="description"
-      content="랜덤 자리 뽑기 프로그램입니다. 간편하게 자리를 정해보세요!"
+      content="랜덤 자리 뽑기 프로그램입니다. 직관적인 UI와 UX, 깔끔한 디자인 속에서 간편하게 자리를 정해보세요!"
     />
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
     <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
@@ -21,25 +22,25 @@
     <meta name="title" content="무작위 자리 뽑기" />
     <meta
       name="subject"
-      content="랜덤 자리 뽑기 프로그램입니다. 간편하게 자리를 정해보세요!"
+      content="랜덤 자리 뽑기 프로그램입니다. 직관적인 UI와 UX, 깔끔한 디자인 속에서 간편하게 자리를 정해보세요!"
     />
     <meta
       name="keywords"
       content="무작위 자리 뽑기, 랜덤 자리 뽑기, 자리뽑기, 번호뽑기, 우리반자리뽑기, 랜덤 뽑기, 숫자랜덤뽑기, 랜덤 번호 뽑기, 뽑기"
     />
-    <meta name="author" content="yyj" />
+    <meta name="author" content="YYJ" />
     <meta property="og:url" content="https://seatpicker.netlify.app/" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="무작위 자리 뽑기" />
     <meta
       property="og:description"
-      content="랜덤 자리 뽑기 프로그램입니다. 간편하게 자리를 정해보세요!"
+      content="랜덤 자리 뽑기 프로그램입니다. 직관적인 UI와 UX, 깔끔한 디자인 속에서 간편하게 자리를 정해보세요!"
     />
     <meta property="og:image" content="img/favicon.png" />
   </head>
   <body>
     <div class="wrapper">
-      <h1>무작위 <span id="seat_cnt"></span>자리 뽑기</h1>
+      <h1 class="title">무작위 <span id="seat_cnt"></span>자리 뽑기</h1>
       <div class="col_input">
         <label for="col" id="col_label"></label>
         <input type="range" name="col" id="col" min="1" max="10" value="5" />
@@ -57,13 +58,15 @@
           placeholder="예: 1-5, 8, 11-13"
         />
       </div>
-      <div class="btn">
-        <button id="num_btn">번호 맞춤 설정</button>
-        <button id="del_btn">없는 자리 설정</button>
-        <button id="pick_btn">뽑기!</button>
+      <div class="btns">
+        <button id="num_btn" class="btn">번호 맞춤 설정</button>
+        <button id="del_btn" class="btn">없는 자리 설정</button>
+        <button id="pick_btn" class="btn">뽑기!</button>
       </div>
+      <button id="chat_btn" class="btn none">댓글, 의견, 피드백 달기</button>
     </div>
     <div id="container"></div>
+    <button id="manual_btn" class="btn">설명서</button>
     <br />
     <section class="ad">
       <div class="ad_banner">
@@ -103,6 +106,113 @@
         ></ins>
       </div>
     </section>
+    <section id="manual">
+      <h1 class="manual_title">사용 설명서</h1>
+      <ul>
+        <li>
+          <p>1. 열과 행을 조절하여 자리를 배치할 수 있습니다.</p>
+          <div class="manual_col_input">
+            <label for="manual_col" id="manual_col_label"></label>
+            <input
+              type="range"
+              name="manual_col"
+              id="manual_col"
+              min="1"
+              max="10"
+              value="5"
+            />
+          </div>
+          <div class="manual_row_input">
+            <label for="manual_row" id="manual_row_label"></label>
+            <input
+              type="range"
+              name="manual_row"
+              id="manual_row"
+              min="1"
+              max="10"
+              value="6"
+            />
+          </div>
+        </li>
+        <li>
+          <p>
+            2. 번호 맞춤 설정 버튼을 눌러보세요! 원하는 번호를 설정할 수
+            있습니다.
+            <br />
+            <br />
+            예) 1-3, 6 => 1, 2, 3, 6
+            <br /><br />
+            <span class="manual_important"
+              >설정을 하지 않을 경우 번호는 1부터 자리 개수까지입니다.</span
+            >
+          </p>
+          <div class="manual_num_form none">
+            <label for="manual_num_input">번호 맞춤 설정</label>
+            <input
+              type="text"
+              name="manual_num_input"
+              id="manual_num_input"
+              placeholder="예: 1-5, 8, 11-13"
+            />
+          </div>
+          <button id="manual_num_btn" class="btn">번호 맞춤 설정</button>
+        </li>
+        <li>
+          <p>
+            3. 없는 자리 설정 버튼을 눌러보세요! 모든 자리에 ❌ 표시가 생깁니다.
+            <br />
+            <br />
+            ❌ 를 누르면 자리가 검정색으로 변합니다. 이는 없는 자리를 뜻합니다.
+            <br />
+            <br />
+            설정 후에는 완료 버튼을 꼭 눌러주세요.
+          </p>
+          <button id="manual_del_btn" class="btn">없는 자리 설정</button>
+          <div class="manual_seat">
+            <button class="manual_seat_btn btn none">❌</button>
+          </div>
+        </li>
+        <li>
+          <p>
+            4. 설정을 완료하였으면 뽑기 버튼을 눌러보세요!
+            <br />
+            <br />
+            3초 뒤 무작위로 자리에 번호가 적혀있을 거예요.
+          </p>
+          <button id="manual_pick_btn" class="btn">뽑기!</button>
+        </li>
+      </ul>
+    </section>
+    <section id="chat">
+      <h1 class="chat_title">댓글</h1>
+      <div id="disqus_thread"></div>
+    </section>
+    <div class="copyright">© 양윤준 YYJ 2021. All Rights Reserved.</div>
+    <script>
+      /**
+       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+      (function () {
+        // DON'T EDIT BELOW THIS LINE
+        var d = document,
+          s = d.createElement("script");
+        s.src = "https://seatpicker.disqus.com/embed.js";
+        s.setAttribute("data-timestamp", +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript
+      >Please enable JavaScript to view the
+      <a href="https://disqus.com/?ref_noscript"
+        >comments powered by Disqus.</a
+      ></noscript
+    >
     <script
       type="text/javascript"
       src="//t1.daumcdn.net/kas/static/ba.min.js"

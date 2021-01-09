@@ -131,6 +131,7 @@ function createSeat(colValue, rowValue) {
       delBtn.innerText = "❌";
       delBtn.className = "seat_btn";
       delBtn.classList.add(NONE);
+      delBtn.classList.add("btn");
 
       seat.appendChild(delBtn);
       line.appendChild(seat);
