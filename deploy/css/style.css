@@ -95,11 +95,16 @@ input[type="range"] {
   transform: scale(0.9);
 }
 
+.btn:focus {
+  outline: none;
+}
+
 #del_btn,
 #num_btn,
 #manual_num_btn,
 #manual_del_btn,
-#chat_btn {
+#chat_btn,
+#popup_btn {
   font-family: "BMEuljiro10yearslater";
   font-size: 20px;
   padding: 10px;
@@ -115,21 +120,9 @@ input[type="range"] {
 #pick_btn:hover,
 #manual_num_btn:hover,
 #manual_del_btn:hover,
-#manual_pick_btn:hover {
+#manual_pick_btn:hover,
+#popup_btn:hover {
   background-color: rgba(170, 120, 30, 0.2);
-}
-
-#del_btn:focus,
-.seat_btn:focus,
-#num_btn:focus,
-#pick_btn:focus,
-#manual_btn:focus,
-#manual_num_btn:focus,
-#manual_del_btn:focus,
-#manual_pick_btn:focus,
-.manual_seat_btn:focus,
-#chat_btn:focus {
-  outline: none;
 }
 
 .num_form,
@@ -198,7 +191,7 @@ input[type="range"] {
 
 #manual_btn {
   position: fixed;
-  bottom: 20px;
+  bottom: 40px;
   right: 20px;
   z-index: 10000;
 }
@@ -211,7 +204,7 @@ input[type="range"] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 85%;
+  width: 90%;
   margin: 0 auto;
   border: 2px solid rgba(170, 120, 30, 0.8);
   margin-top: 30px;
@@ -241,7 +234,7 @@ input[type="range"] {
   white-space: nowrap;
 }
 
-.manual_important {
+.important {
   color: red;
 }
 
@@ -282,6 +275,62 @@ p {
 .copyright {
   text-align: center;
   margin: 10px 0;
+}
+
+#popup {
+  width: 70%;
+  height: 450px;
+  left: 15%;
+  top: 100px;
+  background-color: rgba(255, 255, 255, 0.9);
+  position: fixed;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-radius: 4px;
+  padding-top: 20px;
+  transition: all 0.4s;
+}
+
+.notice {
+  width: 70%;
+  transition: all 0.4s;
+}
+
+.notice p {
+  transition: all 0.4s;
+}
+
+@media (max-width: 950px) {
+  #popup {
+    width: 80%;
+    left: 10%;
+  }
+}
+
+@media (max-width: 840px) {
+  #popup {
+    width: 85%;
+    left: 7.5%;
+  }
+}
+
+@media (max-width: 800px) {
+  #popup {
+    width: 90%;
+    left: 5%;
+  }
+}
+
+@media (max-width: 520px) {
+  .notice p {
+    font-size: 18px;
+  }
+  .notice {
+    width: 85%;
+  }
 }
 
 @media (max-width: 720px) {

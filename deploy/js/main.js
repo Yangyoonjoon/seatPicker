@@ -13,17 +13,22 @@ const col = document.getElementById("col"),
   manualBtn = document.getElementById("manual_btn"),
   manual = document.getElementById("manual"),
   chatBtn = document.getElementById("chat_btn"),
-  chat = document.getElementById("chat");
+  chat = document.getElementById("chat"),
+  popup = document.getElementById("popup"),
+  popupBtn = document.getElementById("popup_btn"),
+  popupCheckbox = document.getElementById("popup_checkbox");
 
 const NONE = "none";
 const DEL = "delete";
 const DISABLED = "disabled";
 const RETRY = "retry";
 const CHANGE = "change";
+const POPUP = "popup";
 
 let isDelStart = false;
 let isNumSetting = false;
 let isPickStart = false;
+let isFirstLoading = true;
 
 const deleteList = [];
 
@@ -345,7 +350,24 @@ function scrollToChat() {
   pickBtn.classList.add(RETRY);
 }
 
+function closePopup() {
+  if (popupCheckbox.checked) {
+    localStorage.setItem(POPUP, "false");
+  }
+  popup.classList.add(NONE);
+  scrollToManual();
+}
+
+function showPopup() {
+  let isPopupShow = localStorage.getItem(POPUP);
+  if (isPopupShow != "false" && isFirstLoading) {
+    popup.classList.remove(NONE);
+    isFirstLoading = false;
+  }
+}
+
 function init() {
+  showPopup();
   rangeChange();
   col.onchange = rangeChange;
   row.onchange = rangeChange;
@@ -354,6 +376,7 @@ function init() {
   pickBtn.addEventListener("click", handlePickBtn);
   manualBtn.addEventListener("click", scrollToManual);
   chatBtn.addEventListener("click", scrollToChat);
+  popupBtn.addEventListener("click", closePopup);
 }
 
 init();
