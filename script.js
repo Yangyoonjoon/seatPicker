@@ -11,15 +11,15 @@ const col = document.getElementById("col"),
   pickBtn = document.getElementById("pick_btn"),
   seatCnt = document.getElementById("seat_cnt");
 
-const NONE = "none";
-const DEL = "delete";
-const DISABLED = "disabled";
-const RETRY = "retry";
-const CHANGE = "change";
+const NONE_CN = "none",
+  DEL_CN = "delete",
+  DISABLED_CN = "disabled",
+  RETRY_CN = "retry",
+  CHANGE_CN = "change";
 
-let isDelStart = false;
-let isNumSetting = false;
-let isPickStart = false;
+let delStart = false,
+  numSetting = false,
+  pickStart = false;
 
 const deleteList = [];
 
@@ -72,21 +72,21 @@ function notCustomizationNumList() {
 }
 
 function chooseDelSeat() {
-  if (isDelStart) {
+  if (delStart) {
     // 버튼 내용 설정
-    isDelStart = false;
+    delStart = false;
     delBtn.innerText = "없는 자리 설정";
     // seatBtns 모든 요소에 none 클래스 추가
     for (let i = 0; i < seatBtns.length; i++) {
-      seatBtns[i].classList.add(NONE);
+      seatBtns[i].classList.add(NONE_CN);
     }
   } else {
     // 버튼 내용 설정
-    isDelStart = true;
+    delStart = true;
     delBtn.innerText = "완료";
     // seatBtns 모든 요소에 none 클래스 제거
     for (let i = 0; i < seatBtns.length; i++) {
-      seatBtns[i].classList.remove(NONE);
+      seatBtns[i].classList.remove(NONE_CN);
       seatBtns[i].addEventListener("click", deleteSeat);
     }
     // 없는 자리 설정을 할 때 마다 반응형으로 구성
@@ -97,7 +97,7 @@ function chooseDelSeat() {
 function deleteSeat(event) {
   let btn = event.target;
   let seat = btn.parentNode;
-  seat.classList.toggle(DEL);
+  seat.classList.toggle(DEL_CN);
 
   // deleteList에 id가 있으면 삭제, 없으면 추가
   let idx = deleteList.indexOf(seat.id);
@@ -126,11 +126,18 @@ function createSeat(colValue, rowValue) {
       seat.id = `${r},${c}`;
       seat.className = "seat";
 
+      // deleteList에 있는 seat는 delete class 추가 => 검정색으로
+      for (let i = 0; i < deleteList.length; i++) {
+        if (seat.id == deleteList[i]) {
+          seat.classList.add(DEL_CN);
+        }
+      }
+
       // 각각의 seat 변수의 자식요소
       let delBtn = document.createElement("button");
       delBtn.innerText = "❌";
       delBtn.className = "seat_btn";
-      delBtn.classList.add(NONE);
+      delBtn.classList.add(NONE_CN);
       delBtn.classList.add("btn");
 
       seat.appendChild(delBtn);
@@ -160,9 +167,11 @@ function countRange(colValue, rowValue) {
   countSeat();
 }
 
-function rangeChange() {
-  // range input의 값이 달라지면 삭제한 seat 목록도 초기화
-  deleteList.splice(0, deleteList.length);
+function rangeChange(event, retry = false) {
+  if (!retry) {
+    // range input의 값이 달라지면 삭제한 seat 목록도 초기화
+    deleteList.splice(0, deleteList.length);
+  }
 
   // col과 row의 range input 값을 가져와서 createSeat 함수로 전달
   let colValue = col.value;
@@ -171,21 +180,21 @@ function rangeChange() {
   countRange(colValue, rowValue);
 
   // seat 삭제중일때 range input 값이 달라져도 삭제중 지속을 위한 코드
-  if (isDelStart) {
-    isDelStart = false;
+  if (delStart) {
+    delStart = false;
     chooseDelSeat();
   }
 }
 
 function handleNumBtn() {
-  numForm.classList.toggle(NONE);
-  if (isNumSetting) {
-    isNumSetting = false;
+  numForm.classList.toggle(NONE_CN);
+  if (numSetting) {
+    numSetting = false;
     numBtn.innerText = "번호 맞춤 설정";
     // 입력값 초기화
     numInput.value = "";
   } else {
-    isNumSetting = true;
+    numSetting = true;
     numBtn.innerText = "맞춤 설정 해제";
   }
 }
@@ -203,15 +212,15 @@ function checkNumInput(input) {
 }
 
 function handlePickBtn() {
-  if (!isPickStart) {
+  if (!pickStart) {
     let input = numInput.value.replaceAll(" ", "");
     let isNumber = checkNumInput(input);
 
-    if (isDelStart) {
+    if (delStart) {
       alert("없는 자리 설정을 완료해주세요");
     } else {
       // 번호 맞춤 설정을 했을때만 numList를 받는다
-      if (isNumSetting && input != "") {
+      if (numSetting && input != "") {
         numList = CustomizationNumList(input);
 
         let colValue = col.value;
@@ -297,7 +306,7 @@ function createRandomSeat(numList) {
         span.innerText = numList[0];
         numList = numList.slice(1, numList.length);
       } else {
-        seat.classList.add(DEL);
+        seat.classList.add(DEL_CN);
       }
 
       seat.appendChild(span);
@@ -307,7 +316,7 @@ function createRandomSeat(numList) {
   }
 
   // 뽑기 효과
-  pickBtn.classList.add(RETRY);
+  pickBtn.classList.add(RETRY_CN);
   pickBtn.innerText = "3";
   setTimeout(() => {
     pickBtn.innerText = "2";
@@ -327,41 +336,41 @@ function createRandomSeat(numList) {
 
 function handleRetry() {
   disabled();
-  pickBtn.classList.remove(RETRY);
+  pickBtn.classList.remove(RETRY_CN);
   pickBtn.innerText = "뽑기!";
   pickBtn.removeEventListener("click", handleRetry);
 
-  init();
+  rangeChange("", true);
 }
 
 function disabled() {
   // 뽑기할 경우 추가 조작 방지
-  if (!isPickStart) {
-    isPickStart = true;
-    delBtn.setAttribute(DISABLED, "");
-    numBtn.setAttribute(DISABLED, "");
-    numInput.setAttribute(DISABLED, "");
-    col.setAttribute(DISABLED, "");
-    row.setAttribute(DISABLED, "");
+  if (!pickStart) {
+    pickStart = true;
+    delBtn.setAttribute(DISABLED_CN, "");
+    numBtn.setAttribute(DISABLED_CN, "");
+    numInput.setAttribute(DISABLED_CN, "");
+    col.setAttribute(DISABLED_CN, "");
+    row.setAttribute(DISABLED_CN, "");
   } else {
-    isPickStart = false;
-    delBtn.removeAttribute(DISABLED);
-    numBtn.removeAttribute(DISABLED);
-    numInput.removeAttribute(DISABLED);
-    col.removeAttribute(DISABLED);
-    row.removeAttribute(DISABLED);
+    pickStart = false;
+    delBtn.removeAttribute(DISABLED_CN);
+    numBtn.removeAttribute(DISABLED_CN);
+    numInput.removeAttribute(DISABLED_CN);
+    col.removeAttribute(DISABLED_CN);
+    row.removeAttribute(DISABLED_CN);
   }
 }
 
 function responsive() {
   let colValue = col.value;
-  if (isDelStart) {
+  if (delStart) {
     let items = document.getElementsByClassName("seat_btn");
     for (let i = 0; i < items.length; i++) {
       // 반응형을 위한 class 추가
       items[i].classList.add(`btn_col${colValue}`);
     }
-  } else if (isPickStart) {
+  } else if (pickStart) {
     let items = document.getElementsByClassName("random_num");
     for (let i = 0; i < items.length; i++) {
       // 반응형을 위한 class 추가
@@ -376,9 +385,9 @@ function countSeat() {
   let cnt = colValue * rowValue - deleteList.length;
 
   seatCnt.innerText = cnt;
-  seatCnt.classList.remove(CHANGE);
+  seatCnt.classList.remove(CHANGE_CN);
   setTimeout(() => {
-    seatCnt.classList.add(CHANGE);
+    seatCnt.classList.add(CHANGE_CN);
   }, 100);
 }
 

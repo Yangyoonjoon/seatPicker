@@ -18,17 +18,18 @@ const col = document.getElementById("col"),
   popupBtn = document.getElementById("popup_btn"),
   popupCheckbox = document.getElementById("popup_checkbox");
 
-const NONE = "none";
-const DEL = "delete";
-const DISABLED = "disabled";
-const RETRY = "retry";
-const CHANGE = "change";
-const POPUP = "popup";
+const NONE_CN = "none",
+  DEL_CN = "delete",
+  DISABLED_CN = "disabled",
+  RETRY_CN = "retry",
+  CHANGE_CN = "change",
+  POPUP_LS = "popup";
 
-let isDelStart = false;
-let isNumSetting = false;
-let isPickStart = false;
-let isFirstLoading = true;
+let delStart = false,
+  numSetting = false,
+  pickStart = false,
+  firstLoading = true,
+  chatBtnClicked = false;
 
 const deleteList = [];
 
@@ -72,17 +73,17 @@ function notCustomizationNumList() {
 }
 
 function chooseDelSeat() {
-  if (isDelStart) {
-    isDelStart = false;
+  if (delStart) {
+    delStart = false;
     delBtn.innerText = "없는 자리 설정";
     for (let i = 0; i < seatBtns.length; i++) {
-      seatBtns[i].classList.add(NONE);
+      seatBtns[i].classList.add(NONE_CN);
     }
   } else {
-    isDelStart = true;
+    delStart = true;
     delBtn.innerText = "완료";
     for (let i = 0; i < seatBtns.length; i++) {
-      seatBtns[i].classList.remove(NONE);
+      seatBtns[i].classList.remove(NONE_CN);
       seatBtns[i].addEventListener("click", deleteSeat);
     }
     responsive();
@@ -92,7 +93,7 @@ function chooseDelSeat() {
 function deleteSeat(event) {
   let btn = event.target;
   let seat = btn.parentNode;
-  seat.classList.toggle(DEL);
+  seat.classList.toggle(DEL_CN);
   let idx = deleteList.indexOf(seat.id);
   if (idx != -1) {
     deleteList.splice(idx, 1);
@@ -112,10 +113,15 @@ function createSeat(colValue, rowValue) {
       let seat = document.createElement("li");
       seat.id = `${r},${c}`;
       seat.className = "seat";
+      for (let i = 0; i < deleteList.length; i++) {
+        if (seat.id == deleteList[i]) {
+          seat.classList.add(DEL_CN);
+        }
+      }
       let delBtn = document.createElement("button");
       delBtn.innerText = "❌";
       delBtn.className = "seat_btn";
-      delBtn.classList.add(NONE);
+      delBtn.classList.add(NONE_CN);
       delBtn.classList.add("btn");
       seat.appendChild(delBtn);
       line.appendChild(seat);
@@ -141,26 +147,28 @@ function countRange(colValue, rowValue) {
   countSeat();
 }
 
-function rangeChange() {
-  deleteList.splice(0, deleteList.length);
+function rangeChange(event, retry = false) {
+  if (!retry) {
+    deleteList.splice(0, deleteList.length);
+  }
   let colValue = col.value;
   let rowValue = row.value;
   createSeat(colValue, rowValue);
   countRange(colValue, rowValue);
-  if (isDelStart) {
-    isDelStart = false;
+  if (delStart) {
+    delStart = false;
     chooseDelSeat();
   }
 }
 
 function handleNumBtn() {
-  numForm.classList.toggle(NONE);
-  if (isNumSetting) {
-    isNumSetting = false;
+  numForm.classList.toggle(NONE_CN);
+  if (numSetting) {
+    numSetting = false;
     numBtn.innerText = "번호 맞춤 설정";
     numInput.value = "";
   } else {
-    isNumSetting = true;
+    numSetting = true;
     numBtn.innerText = "맞춤 설정 해제";
   }
 }
@@ -177,7 +185,7 @@ function checkNumInput(input) {
 }
 
 function handlePickBtn() {
-  if (!isPickStart) {
+  if (!pickStart) {
     // let input = numInput.value.replaceAll(" ", "");
     let input = numInput.value;
     while (true) {
@@ -190,10 +198,10 @@ function handlePickBtn() {
     }
     let isNumber = checkNumInput(input);
 
-    if (isDelStart) {
+    if (delStart) {
       alert("없는 자리 설정을 완료해주세요");
     } else {
-      if (isNumSetting && input != "") {
+      if (numSetting && input != "") {
         numList = CustomizationNumList(input);
         let colValue = col.value;
         let rowValue = row.value;
@@ -260,14 +268,14 @@ function createRandomSeat(numList) {
         span.innerText = numList[0];
         numList = numList.slice(1, numList.length);
       } else {
-        seat.classList.add(DEL);
+        seat.classList.add(DEL_CN);
       }
       seat.appendChild(span);
       line.appendChild(seat);
     }
     lineArray.push(line);
   }
-  pickBtn.classList.add(RETRY);
+  pickBtn.classList.add(RETRY_CN);
   pickBtn.innerText = "3";
   setTimeout(() => {
     pickBtn.innerText = "2";
@@ -279,8 +287,10 @@ function createRandomSeat(numList) {
         paintSeat(lineArray);
         pickBtn.innerText = "다시!";
         pickBtn.addEventListener("click", handleRetry);
-        pickBtn.classList.remove(RETRY);
-        chatBtn.classList.remove(NONE);
+        if (!chatBtnClicked) {
+          pickBtn.classList.remove(RETRY_CN);
+          chatBtn.classList.remove(NONE_CN);
+        }
       }, 1000);
     }, 1000);
   }, 1000);
@@ -288,38 +298,38 @@ function createRandomSeat(numList) {
 
 function handleRetry() {
   disabled();
-  pickBtn.classList.remove(RETRY);
+  pickBtn.classList.remove(RETRY_CN);
   pickBtn.innerText = "뽑기!";
   pickBtn.removeEventListener("click", handleRetry);
-  init();
+  rangeChange("", true);
 }
 
 function disabled() {
-  if (!isPickStart) {
-    isPickStart = true;
-    delBtn.setAttribute(DISABLED, "");
-    numBtn.setAttribute(DISABLED, "");
-    numInput.setAttribute(DISABLED, "");
-    col.setAttribute(DISABLED, "");
-    row.setAttribute(DISABLED, "");
+  if (!pickStart) {
+    pickStart = true;
+    delBtn.setAttribute(DISABLED_CN, "");
+    numBtn.setAttribute(DISABLED_CN, "");
+    numInput.setAttribute(DISABLED_CN, "");
+    col.setAttribute(DISABLED_CN, "");
+    row.setAttribute(DISABLED_CN, "");
   } else {
-    isPickStart = false;
-    delBtn.removeAttribute(DISABLED);
-    numBtn.removeAttribute(DISABLED);
-    numInput.removeAttribute(DISABLED);
-    col.removeAttribute(DISABLED);
-    row.removeAttribute(DISABLED);
+    pickStart = false;
+    delBtn.removeAttribute(DISABLED_CN);
+    numBtn.removeAttribute(DISABLED_CN);
+    numInput.removeAttribute(DISABLED_CN);
+    col.removeAttribute(DISABLED_CN);
+    row.removeAttribute(DISABLED_CN);
   }
 }
 
 function responsive() {
   let colValue = col.value;
-  if (isDelStart) {
+  if (delStart) {
     let items = document.getElementsByClassName("seat_btn");
     for (let i = 0; i < items.length; i++) {
       items[i].classList.add(`btn_col${colValue}`);
     }
-  } else if (isPickStart) {
+  } else if (pickStart) {
     let items = document.getElementsByClassName("random_num");
     for (let i = 0; i < items.length; i++) {
       items[i].classList.add(`num_col${colValue}`);
@@ -332,9 +342,9 @@ function countSeat() {
   let rowValue = row.value;
   let cnt = colValue * rowValue - deleteList.length;
   seatCnt.innerText = cnt;
-  seatCnt.classList.remove(CHANGE);
+  seatCnt.classList.remove(CHANGE_CN);
   setTimeout(() => {
-    seatCnt.classList.add(CHANGE);
+    seatCnt.classList.add(CHANGE_CN);
   }, 100);
 }
 
@@ -346,23 +356,24 @@ function scrollToManual() {
 function scrollToChat() {
   let location = chat.offsetTop;
   scrollTo({ top: location, behavior: "smooth" });
-  chatBtn.classList.add(NONE);
-  pickBtn.classList.add(RETRY);
+  chatBtn.classList.add(NONE_CN);
+  pickBtn.classList.add(RETRY_CN);
+  chatBtnClicked = true;
 }
 
 function closePopup() {
   if (popupCheckbox.checked) {
-    localStorage.setItem(POPUP, "false");
+    localStorage.setItem(POPUP_LS, "false");
   }
-  popup.classList.add(NONE);
+  popup.classList.add(NONE_CN);
   scrollToManual();
 }
 
 function showPopup() {
-  let isPopupShow = localStorage.getItem(POPUP);
-  if (isPopupShow != "false" && isFirstLoading) {
-    popup.classList.remove(NONE);
-    isFirstLoading = false;
+  let isPopupShow = localStorage.getItem(POPUP_LS);
+  if (isPopupShow === null && firstLoading) {
+    popup.classList.remove(NONE_CN);
+    firstLoading = false;
   }
 }
 

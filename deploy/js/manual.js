@@ -9,9 +9,9 @@ const manual_col = document.getElementById("manual_col"),
   manual_seat_btn = document.querySelector(".manual_seat_btn"),
   manual_seat = document.querySelector(".manual_seat");
 
-let manual_isDelStart = false;
-let manual_isNumSetting = false;
-let manual_isPickStart = false;
+let manual_delStart = false;
+let manual_numSetting = false;
+let manual_pickStart = false;
 
 function manual_rangeChange() {
   let colValue = manual_col.value;
@@ -21,36 +21,36 @@ function manual_rangeChange() {
 }
 
 function manual_numBtn() {
-  if (manual_isNumSetting) {
+  if (manual_numSetting) {
     manual_num_btn.innerText = "번호 맞춤 설정";
-    manual_isNumSetting = false;
-    manual_num_form.classList.add(NONE);
+    manual_numSetting = false;
+    manual_num_form.classList.add(NONE_CN);
   } else {
     manual_num_btn.innerText = "맞춤 설정 해제";
-    manual_isNumSetting = true;
-    manual_num_form.classList.remove(NONE);
+    manual_numSetting = true;
+    manual_num_form.classList.remove(NONE_CN);
   }
 }
 
 function manual_delBtn() {
-  if (manual_isDelStart) {
+  if (manual_delStart) {
     manual_del_btn.innerText = "없는 자리 설정";
-    manual_isDelStart = false;
+    manual_delStart = false;
   } else {
     manual_del_btn.innerText = "완료";
-    manual_isDelStart = true;
+    manual_delStart = true;
   }
-  manual_seat_btn.classList.toggle(NONE);
+  manual_seat_btn.classList.toggle(NONE_CN);
 }
 
 function manual_pickBtn() {
-  if (manual_isPickStart) {
+  if (manual_pickStart) {
     manual_pick_btn.innerText = "뽑기!";
-    manual_pick_btn.classList.remove(RETRY);
-    manual_isPickStart = false;
+    manual_pick_btn.classList.remove(RETRY_CN);
+    manual_pickStart = false;
   } else {
-    manual_pick_btn.classList.add(RETRY);
-    manual_isPickStart = true;
+    manual_pick_btn.classList.add(RETRY_CN);
+    manual_pickStart = true;
     manual_pick_btn.removeEventListener("click", manual_pickBtn);
     manual_pick_btn.innerText = "3";
     setTimeout(() => {
@@ -69,7 +69,7 @@ function manual_pickBtn() {
 }
 
 function manual_seatBtn() {
-  manual_seat.classList.toggle(DEL);
+  manual_seat.classList.toggle(DEL_CN);
 }
 
 function manual_init() {
