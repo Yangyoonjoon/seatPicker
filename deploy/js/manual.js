@@ -6,6 +6,7 @@ const manual_col = document.getElementById("manual_col"),
   manual_del_btn = document.getElementById("manual_del_btn"),
   manual_pick_btn = document.getElementById("manual_pick_btn"),
   manual_num_form = document.querySelector(".manual_num_form"),
+  manual_num_input = document.getElementById("manual_num_input"),
   manual_seat_btn = document.querySelector(".manual_seat_btn"),
   manual_seat = document.querySelector(".manual_seat");
 
@@ -29,6 +30,7 @@ function manual_numBtn() {
     manual_num_btn.innerText = "맞춤 설정 해제";
     manual_numSetting = true;
     manual_num_form.classList.remove(NONE_CN);
+    manual_num_input.value = "";
   }
 }
 
