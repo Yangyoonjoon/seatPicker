@@ -76,8 +76,8 @@ function manual_seatBtn() {
 
 function manual_init() {
   manual_rangeChange();
-  manual_col.onchange = manual_rangeChange;
-  manual_row.onchange = manual_rangeChange;
+  manual_col.addEventListener("input", manual_rangeChange);
+  manual_row.addEventListener("input", manual_rangeChange);
   manual_num_btn.addEventListener("click", manual_numBtn);
   manual_del_btn.addEventListener("click", manual_delBtn);
   manual_pick_btn.addEventListener("click", manual_pickBtn);

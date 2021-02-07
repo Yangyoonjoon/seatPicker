@@ -13,23 +13,18 @@ const col = document.getElementById("col"),
   manualBtn = document.getElementById("manual_btn"),
   manual = document.getElementById("manual"),
   chatBtn = document.getElementById("chat_btn"),
-  chat = document.getElementById("chat"),
-  popup = document.getElementById("popup"),
-  popupBtn = document.getElementById("popup_btn"),
-  popupCheckbox = document.getElementById("popup_checkbox");
+  chat = document.getElementById("chat");
 
 const NONE_CN = "none",
   DEL_CN = "delete",
   DISABLED_CN = "disabled",
   RETRY_CN = "retry",
-  CHANGE_CN = "change",
-  POPUP_LS = "popup";
+  CHANGE_CN = "change";
 
 let delStart = false,
   numSetting = false,
   pickStart = false,
-  firstLoading = true,
-  chatBtnClicked = false;
+  firstLoading = true;
 
 const deleteList = [];
 
@@ -86,7 +81,6 @@ function chooseDelSeat() {
       seatBtns[i].classList.remove(NONE_CN);
       seatBtns[i].addEventListener("click", deleteSeat);
     }
-    responsive();
   }
 }
 
@@ -138,7 +132,6 @@ function paintSeat(lineArray) {
   for (let r = 0; r < lineArray.length; r++) {
     container.appendChild(lineArray[r]);
   }
-  responsive();
 }
 
 function countRange(colValue, rowValue) {
@@ -214,7 +207,7 @@ function handlePickBtn() {
         }
         if (!isNumber) {
           alert(
-            "맞춤 설정 오류 \n(숫자만 입력하였는지 또는 ',' '-' 기호를 제대로 사용했는지 확인!)"
+            "맞춤 설정 오류 \n( 0을 제외한 숫자만 입력하였는지 또는 ',' '-' 기호를 제대로 사용했는지 확인! )"
           );
         } else if (numList.length != seatCnt) {
           alert(
@@ -287,10 +280,6 @@ function createRandomSeat(numList) {
         paintSeat(lineArray);
         pickBtn.innerText = "다시!";
         pickBtn.addEventListener("click", handleRetry);
-        if (!chatBtnClicked) {
-          pickBtn.classList.remove(RETRY_CN);
-          chatBtn.classList.remove(NONE_CN);
-        }
       }, 1000);
     }, 1000);
   }, 1000);
@@ -322,21 +311,6 @@ function disabled() {
   }
 }
 
-function responsive() {
-  let colValue = col.value;
-  if (delStart) {
-    let items = document.getElementsByClassName("seat_btn");
-    for (let i = 0; i < items.length; i++) {
-      items[i].classList.add(`btn_col${colValue}`);
-    }
-  } else if (pickStart) {
-    let items = document.getElementsByClassName("random_num");
-    for (let i = 0; i < items.length; i++) {
-      items[i].classList.add(`num_col${colValue}`);
-    }
-  }
-}
-
 function countSeat() {
   let colValue = col.value;
   let rowValue = row.value;
@@ -356,38 +330,17 @@ function scrollToManual() {
 function scrollToChat() {
   let location = chat.offsetTop;
   scrollTo({ top: location, behavior: "smooth" });
-  chatBtn.classList.add(NONE_CN);
-  pickBtn.classList.add(RETRY_CN);
-  chatBtnClicked = true;
-}
-
-function closePopup() {
-  if (popupCheckbox.checked) {
-    localStorage.setItem(POPUP_LS, "false");
-  }
-  popup.classList.add(NONE_CN);
-  scrollToManual();
-}
-
-function showPopup() {
-  let isPopupShow = localStorage.getItem(POPUP_LS);
-  if (isPopupShow === null && firstLoading) {
-    popup.classList.remove(NONE_CN);
-    firstLoading = false;
-  }
 }
 
 function init() {
-  showPopup();
   rangeChange();
-  col.onchange = rangeChange;
-  row.onchange = rangeChange;
+  col.addEventListener("input", rangeChange);
+  row.addEventListener("input", rangeChange);
   numBtn.addEventListener("click", handleNumBtn);
   delBtn.addEventListener("click", chooseDelSeat);
   pickBtn.addEventListener("click", handlePickBtn);
   manualBtn.addEventListener("click", scrollToManual);
   chatBtn.addEventListener("click", scrollToChat);
-  popupBtn.addEventListener("click", closePopup);
 }
 
 init();
