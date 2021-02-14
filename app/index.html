@@ -65,7 +65,7 @@
     <meta property="og:image" content="img/favicon.png" />
   </head>
   <body>
-    <div class="wrapper">
+    <article class="controller">
       <h1 class="title">무작위 <span id="seat_cnt"></span>자리 뽑기</h1>
       <div class="col_input">
         <label for="col" id="col_label"></label>
@@ -94,61 +94,23 @@
         <span>좌우로 스크롤</span>
         <i class="fas fa-long-arrow-alt-right"></i>
       </div>
-    </div>
-    <div id="container"></div>
+    </article>
+
+    <article id="container"></article>
 
     <div class="scroll_btns btns">
-      <button id="chat_btn" class="btn">댓글, 의견, 피드백 달기</button>
+      <button id="license-btn" class="btn">라이선스</button>
       <button id="manual_btn" class="btn">설명서</button>
     </div>
 
-    <!-- <br />
-      <section class="ad">
-      <div class="ad_banner">
-        <ins
-        class="kakao_ad_area"
-          style="display: none"
-          data-ad-unit="DAN-TNGrdc7azIzfzWog"
-          data-ad-width="320"
-          data-ad-height="100"
-        ></ins>
-      </div>
-      <div class="ad_banner">
-        <ins
-          class="kakao_ad_area"
-          style="display: none"
-          data-ad-unit="DAN-Vt5UVoaxiMXTw7Xi"
-          data-ad-width="320"
-          data-ad-height="100"
-        ></ins>
-      </div>
-      <div class="ad_banner">
-        <ins
-        class="kakao_ad_area"
-          style="display: none"
-          data-ad-unit="DAN-5W7yAvsPLlJgehVC"
-          data-ad-width="320"
-          data-ad-height="100"
-        ></ins>
-      </div>
-      <div class="ad_banner">
-        <ins
-          class="kakao_ad_area"
-          style="display: none"
-          data-ad-unit="DAN-LAbgRjJoPD4GmM1Z"
-          data-ad-width="320"
-          data-ad-height="100"
-          ></ins>
-        </div>
-      </section> -->
-
-    <div class="nickname">
+    <!-- <div class="nickname">
       <a href="https://nickname.netlify.app/" target="_blank">
         <img src="img/nickname.png" alt="무작위 닉네임 생성기" />
         무작위 닉네임 생성기
       </a>
-    </div>
-    <section id="manual">
+    </div> -->
+
+    <article id="manual" class="none">
       <h1 class="manual_title">사용 설명서</h1>
       <ul>
         <li>
@@ -227,12 +189,9 @@
           <button id="manual_pick_btn" class="btn">뽑기!</button>
         </li>
       </ul>
-    </section>
-    <section id="chat">
-      <h1 class="chat_title">댓글</h1>
-      <div id="disqus_thread"></div>
-    </section>
-    <section class="copyright">
+    </article>
+
+    <article class="copyright none">
       <a
         href="https://creativecommons.org/licenses/by-sa/2.0/kr/"
         target="_blank"
@@ -244,36 +203,6 @@
         적용되어 있습니다.
       </div>
       <div class="site-copyright">© 양윤준 YYJ 2021. All Rights Reserved.</div>
-    </section>
-    <script>
-      /**
-       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-      /*
-    var disqus_config = function () {
-    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    */
-      (function () {
-        // DON'T EDIT BELOW THIS LINE
-        var d = document,
-          s = d.createElement("script");
-        s.src = "https://seatpicker.disqus.com/embed.js";
-        s.setAttribute("data-timestamp", +new Date());
-        (d.head || d.body).appendChild(s);
-      })();
-    </script>
-    <noscript
-      >Please enable JavaScript to view the
-      <a href="https://disqus.com/?ref_noscript"
-        >comments powered by Disqus.</a
-      ></noscript
-    >
-    <script
-      type="text/javascript"
-      src="//t1.daumcdn.net/kas/static/ba.min.js"
-      async
-    ></script>
+    </article>
   </body>
 </html>

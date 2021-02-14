@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-3K57BDGSCH"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-3K57BDGSCH");
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/main.js" defer></script>
+    <script src="js/manual.js" defer></script>
+    <script
+      src="https://kit.fontawesome.com/afb19fe50c.js"
+      crossorigin="anonymous"
+      defer
+    ></script>
+    <meta
+      name="naver-site-verification"
+      content="9b035bdd571d863dfeff6d844a20b735cbf9a4bf"
+    />
+    <meta name="NaverBot" content="All" />
+    <meta name="NaverBot" content="index,follow" />
+    <meta name="Yeti" content="All" />
+    <meta name="Yeti" content="index,follow" />
+    <link rel="canonical" href="https://seatpicker.netlify.app/" />
+    <meta
+      name="description"
+      content="랜덤 자리 뽑기 프로그램입니다. 직관적인 UI와 깔끔한 디자인 속에서 간편하게 자리를 정해보세요! 다운로드X 회원가입X, PC 모바일 모두 가능"
+    />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>무작위 자리 뽑기 - No.1 자리뽑기 웹사이트</title>
+    <meta name="title" content="무작위 자리 뽑기 - No.1 자리뽑기 웹사이트" />
+    <meta
+      name="subject"
+      content="랜덤 자리 뽑기 프로그램입니다. 직관적인 UI와 깔끔한 디자인 속에서 간편하게 자리를 정해보세요! 다운로드X 회원가입X, PC 모바일 모두 가능"
+    />
+    <meta
+      name="keywords"
+      content="무작위 자리 뽑기, 랜덤 자리 뽑기, 랜덤자리뽑기, 자리뽑기, 번호뽑기, 우리반자리뽑기, 랜덤 뽑기, 숫자랜덤뽑기, 랜덤 번호 뽑기, 랜덤번호뽑기, 뽑기, 랜덤, 무작위, 학교, 학교 자리뽑기"
+    />
+    <meta name="author" content="YYJ" />
+    <meta property="og:url" content="https://seatpicker.netlify.app/" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="무작위 자리 뽑기 - No.1 자리뽑기 웹사이트"
+    />
+    <meta
+      property="og:description"
+      content="랜덤 자리 뽑기 프로그램입니다. 직관적인 UI와 깔끔한 디자인 속에서 간편하게 자리를 정해보세요! 다운로드X 회원가입X, PC 모바일 모두 가능"
+    />
+    <meta property="og:image" content="img/favicon.png" />
+  </head>
+  <body>
+    <article class="controller">
+      <h1 class="title">무작위 <span id="seat_cnt"></span>자리 뽑기</h1>
+      <div class="col_input">
+        <label for="col" id="col_label"></label>
+        <input type="range" name="col" id="col" min="1" max="10" value="5" />
+      </div>
+      <div class="row_input">
+        <label for="row" id="row_label"></label>
+        <input type="range" name="row" id="row" min="1" max="10" value="6" />
+      </div>
+      <div class="num_form none">
+        <label for="num_input">번호 맞춤 설정</label>
+        <input
+          type="text"
+          name="num_input"
+          id="num_input"
+          placeholder="예: 1-5, 8, 11-13"
+        />
+      </div>
+      <div class="btns">
+        <button id="num_btn" class="btn">번호 맞춤 설정</button>
+        <button id="del_btn" class="btn">없는 자리 설정</button>
+        <button id="pick_btn" class="btn">뽑기!</button>
+      </div>
+      <div class="lr-scroll">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        <span>좌우로 스크롤</span>
+        <i class="fas fa-long-arrow-alt-right"></i>
+      </div>
+    </article>
+
+    <article id="container"></article>
+
+    <div class="scroll_btns btns">
+      <button id="chat_btn" class="btn">댓글, 의견, 피드백 달기</button>
+      <button id="manual_btn" class="btn">설명서</button>
+    </div>
+
+    <!-- <br />
+      <article class="ad">
+      <div class="ad_banner">
+        <ins
+        class="kakao_ad_area"
+          style="display: none"
+          data-ad-unit="DAN-TNGrdc7azIzfzWog"
+          data-ad-width="320"
+          data-ad-height="100"
+        ></ins>
+      </div>
+      <div class="ad_banner">
+        <ins
+          class="kakao_ad_area"
+          style="display: none"
+          data-ad-unit="DAN-Vt5UVoaxiMXTw7Xi"
+          data-ad-width="320"
+          data-ad-height="100"
+        ></ins>
+      </div>
+      <div class="ad_banner">
+        <ins
+        class="kakao_ad_area"
+          style="display: none"
+          data-ad-unit="DAN-5W7yAvsPLlJgehVC"
+          data-ad-width="320"
+          data-ad-height="100"
+        ></ins>
+      </div>
+      <div class="ad_banner">
+        <ins
+          class="kakao_ad_area"
+          style="display: none"
+          data-ad-unit="DAN-LAbgRjJoPD4GmM1Z"
+          data-ad-width="320"
+          data-ad-height="100"
+          ></ins>
+        </div>
+      </article> -->
+
+    <article class="my-ad">
+      <section class="jocoding">
+        <h2>
+          <a
+            href="https://www.youtube.com/channel/UCQNE2JmbasNYbjGAcuBiRRg"
+            target="_blank"
+          >
+            <img src="img/youtube.png" alt="유튜브 아이콘" />
+            조코딩 유튜브
+          </a>
+        </h2>
+      </section>
+      <section class="nickname">
+        <h2>
+          <a href="https://nickname.netlify.app/" target="_blank">
+            <img src="img/nickname.png" alt="무작위 닉네임 생성기" />
+            무작위 닉네임 생성기
+          </a>
+        </h2>
+      </section>
+    </article>
+
+    <article id="manual">
+      <h1 class="manual_title">사용 설명서</h1>
+      <ul>
+        <li>
+          <p>1. 열과 행을 조절하여 자리를 배치할 수 있습니다.</p>
+          <div class="manual_col_input">
+            <label for="manual_col" id="manual_col_label"></label>
+            <input
+              type="range"
+              name="manual_col"
+              id="manual_col"
+              min="1"
+              max="10"
+              value="5"
+            />
+          </div>
+          <div class="manual_row_input">
+            <label for="manual_row" id="manual_row_label"></label>
+            <input
+              type="range"
+              name="manual_row"
+              id="manual_row"
+              min="1"
+              max="10"
+              value="6"
+            />
+          </div>
+        </li>
+        <li>
+          <p>
+            2. 번호 맞춤 설정 버튼을 눌러보세요! 원하는 번호를 설정할 수
+            있습니다.
+            <br /><br />
+            예) 1-3, 6 => 1, 2, 3, 6
+            <br /><br />
+            <span class="important">
+              설정을 하지 않을 경우 번호는 1부터 자리 개수까지입니다.
+              <br /><br />
+              0은 사용할 수 없습니다.
+            </span>
+          </p>
+          <div class="manual_num_form none">
+            <label for="manual_num_input">번호 맞춤 설정</label>
+            <input
+              type="text"
+              name="manual_num_input"
+              id="manual_num_input"
+              placeholder="예: 1-5, 8, 11-13"
+            />
+          </div>
+          <button id="manual_num_btn" class="btn">번호 맞춤 설정</button>
+        </li>
+        <li>
+          <p>
+            3. 없는 자리 설정 버튼을 눌러보세요! 모든 자리에 ❌ 표시가 생깁니다.
+            <br />
+            <br />
+            ❌ 를 누르면 자리가 검정색으로 변합니다. 이는 없는 자리를 뜻합니다.
+            <br />
+            <br />
+            <span class="important"
+              >설정 후에는 완료 버튼을 꼭 눌러주세요.</span
+            >
+          </p>
+          <button id="manual_del_btn" class="btn">없는 자리 설정</button>
+          <div class="manual_seat">
+            <button class="manual_seat_btn btn none">❌</button>
+          </div>
+        </li>
+        <li>
+          <p>
+            4. 설정을 완료하였으면 뽑기 버튼을 눌러보세요!
+            <br />
+            <br />
+            3초 뒤 무작위로 자리에 번호가 적혀있을 거예요.
+          </p>
+          <button id="manual_pick_btn" class="btn">뽑기!</button>
+        </li>
+      </ul>
+    </article>
+
+    <article id="chat">
+      <h1 class="chat_title">댓글</h1>
+      <div id="disqus_thread"></div>
+    </article>
+
+    <article class="copyright">
+      <a
+        href="https://creativecommons.org/licenses/by-sa/2.0/kr/"
+        target="_blank"
+      >
+        <img src="img/CCLicense.png" alt="CC BY-SA" class="cc-license" />
+      </a>
+      <div class="font-copyright">
+        이 페이지에는 ㈜우아한형제들에서 제공한 배민 을지로10년후체 폰트가
+        적용되어 있습니다.
+      </div>
+      <div class="site-copyright">© 양윤준 YYJ 2021. All Rights Reserved.</div>
+    </article>
+    <script>
+      /**
+       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+      (function () {
+        // DON'T EDIT BELOW THIS LINE
+        var d = document,
+          s = d.createElement("script");
+        s.src = "https://seatpicker.disqus.com/embed.js";
+        s.setAttribute("data-timestamp", +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript
+      >Please enable JavaScript to view the
+      <a href="https://disqus.com/?ref_noscript"
+        >comments powered by Disqus.</a
+      ></noscript
+    >
+    <script
+      type="text/javascript"
+      src="//t1.daumcdn.net/kas/static/ba.min.js"
+      async
+    ></script>
+  </body>
+</html>

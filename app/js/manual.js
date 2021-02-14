@@ -39,7 +39,7 @@ function manual_delBtn() {
     manual_del_btn.innerText = "없는 자리 설정";
     manual_delStart = false;
   } else {
-    manual_del_btn.innerText = "완료";
+    manual_del_btn.innerText = "자리 설정 완료";
     manual_delStart = true;
   }
   manual_seat_btn.classList.toggle(NONE_CN);

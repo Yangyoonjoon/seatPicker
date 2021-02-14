@@ -12,8 +12,8 @@ const col = document.getElementById("col"),
   seatCnt = document.getElementById("seat_cnt"),
   manualBtn = document.getElementById("manual_btn"),
   manual = document.getElementById("manual"),
-  chatBtn = document.getElementById("chat_btn"),
-  chat = document.getElementById("chat");
+  licenseBtn = document.getElementById("license-btn"),
+  copyright = document.querySelector(".copyright");
 
 const NONE_CN = "none",
   DEL_CN = "delete",
@@ -24,7 +24,8 @@ const NONE_CN = "none",
 let delStart = false,
   numSetting = false,
   pickStart = false,
-  firstLoading = true;
+  isManualOn = false,
+  isLicenseOn = false;
 
 const deleteList = [];
 
@@ -76,7 +77,7 @@ function chooseDelSeat() {
     }
   } else {
     delStart = true;
-    delBtn.innerText = "완료";
+    delBtn.innerText = "자리 설정완료";
     for (let i = 0; i < seatBtns.length; i++) {
       seatBtns[i].classList.remove(NONE_CN);
       seatBtns[i].addEventListener("click", deleteSeat);
@@ -322,14 +323,26 @@ function countSeat() {
   }, 100);
 }
 
-function scrollToManual() {
-  let location = manual.offsetTop;
-  scrollTo({ top: location, behavior: "smooth" });
+function handleManual() {
+  manual.classList.toggle(NONE_CN);
+  if (!isLicenseOn) {
+    let location = manual.offsetTop;
+    scrollTo({ top: location, behavior: "smooth" });
+    isLicenseOn = true;
+  } else {
+    isLicenseOn = false;
+  }
 }
 
-function scrollToChat() {
-  let location = chat.offsetTop;
-  scrollTo({ top: location, behavior: "smooth" });
+function handleLicense() {
+  copyright.classList.toggle(NONE_CN);
+  if (!isManualOn) {
+    let location = copyright.offsetTop;
+    scrollTo({ top: location, behavior: "smooth" });
+    isManualOn = true;
+  } else {
+    isManualOn = false;
+  }
 }
 
 function init() {
@@ -339,8 +352,8 @@ function init() {
   numBtn.addEventListener("click", handleNumBtn);
   delBtn.addEventListener("click", chooseDelSeat);
   pickBtn.addEventListener("click", handlePickBtn);
-  manualBtn.addEventListener("click", scrollToManual);
-  chatBtn.addEventListener("click", scrollToChat);
+  manualBtn.addEventListener("click", handleManual);
+  licenseBtn.addEventListener("click", handleLicense);
 }
 
 init();

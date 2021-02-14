@@ -9,7 +9,7 @@ body {
   background-color: rgba(250, 230, 150, 0.3);
 }
 
-.wrapper {
+.controller {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,14 +24,14 @@ body {
 }
 
 .title {
-  font-size: 50px;
+  font-size: 40px;
   margin: 20px;
   transition: all 0.4s;
   white-space: nowrap;
 }
 
 #seat_cnt {
-  font-size: 45px;
+  font-size: 35px;
 }
 
 li {
@@ -65,7 +65,7 @@ input[type="range"] {
 }
 
 #container {
-  padding: 5px;
+  margin: 5px;
   overflow: auto;
 }
 
@@ -109,7 +109,7 @@ input[type="range"] {
 #num_btn,
 #manual_num_btn,
 #manual_del_btn,
-#chat_btn,
+#license-btn,
 #manual_btn {
   font-family: "BMEuljiro10yearslater";
   font-size: 20px;
@@ -194,11 +194,11 @@ input[type="range"] {
 }
 
 #manual_btn:active,
-#chat_btn:active {
+#license-btn:active {
   background-color: gold;
 }
 
-#chat_btn,
+#license-btn,
 #manual_btn {
   margin: 5px;
 }
@@ -207,10 +207,9 @@ input[type="range"] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 90%;
-  margin: 0 auto;
+  width: 95%;
   border: 2px solid rgba(170, 120, 30, 0.8);
-  margin-top: 30px;
+  margin: 20px auto;
 }
 
 #manual ul {
@@ -229,8 +228,7 @@ input[type="range"] {
   margin-bottom: 30px;
 }
 
-.manual_title,
-.chat_title {
+.manual_title {
   font-size: 35px;
   margin: 20px;
   transition: all 0.4s;
@@ -257,16 +255,8 @@ p {
   font-size: 20px;
 }
 
-#chat {
-  margin-top: 50px;
-}
-
-.chat_title {
-  margin-bottom: 0;
-  text-align: center;
-}
-
 .copyright {
+  margin: 20px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -297,7 +287,7 @@ p {
   align-items: center;
   height: 50px;
   font-size: 30px;
-  color: rgba(0, 25, 255, 0.5);
+  color: rgba(39, 60, 117, 0.8);
   transition: all 0.4s;
 }
 
@@ -322,15 +312,6 @@ p {
 
 .lr-scroll span {
   margin: 0 10px;
-}
-
-@media (max-width: 720px) {
-  .ad {
-    width: fit-content;
-    height: 500px;
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-  }
 }
 
 @keyframes change {
@@ -408,82 +389,5 @@ p {
 
   100% {
     background-color: #fff;
-  }
-}
-
-@media (min-height: 950px) {
-  .title {
-    font-size: 70px;
-  }
-  #seat_cnt {
-    font-size: 63px;
-  }
-  .col_input,
-  .row_input,
-  .num_form,
-  .manual_num_form,
-  .manual_col_input,
-  .manual_row_input {
-    zoom: 1.5;
-  }
-  #del_btn,
-  #num_btn,
-  #manual_num_btn,
-  #manual_del_btn {
-    font-size: 30px;
-    margin-top: 20px;
-    padding: 15px;
-  }
-  #pick_btn,
-  #manual_pick_btn {
-    width: 75px;
-    height: 75px;
-    font-size: 30px;
-  }
-  p {
-    font-size: 25px;
-  }
-}
-
-@media (min-height: 1250px) {
-  .title {
-    font-size: 100px;
-  }
-  #seat_cnt {
-    font-size: 90px;
-  }
-  .col_input,
-  .row_input,
-  .num_form,
-  .manual_num_form,
-  .manual_col_input,
-  .manual_row_input {
-    zoom: 2;
-  }
-  #del_btn,
-  #num_btn,
-  #manual_num_btn,
-  #manual_del_btn {
-    font-size: 40px;
-    margin-top: 20px;
-    padding: 15px;
-  }
-  #pick_btn,
-  #manual_pick_btn {
-    width: 100px;
-    height: 100px;
-    font-size: 40px;
-  }
-  p {
-    font-size: 30px;
-  }
-}
-
-@media (max-width: 400px) {
-  .title {
-    font-size: 40px;
-  }
-  #seat_cnt {
-    font-size: 36px;
   }
 }
