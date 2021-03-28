@@ -1,3 +1,5 @@
+/* tag init */
+
 body,
 ul {
   margin: 0;
@@ -6,14 +8,34 @@ ul {
 }
 
 body {
-  background-color: rgba(250, 230, 150, 0.3);
+  background-color: var(--bg-color);
 }
 
-.controller {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+li {
+  list-style-type: none;
 }
+
+p {
+  font-size: 20px;
+}
+
+hr {
+  width: 100%;
+  border: var(--bright-color) 3px solid;
+  border-bottom: 0;
+}
+
+/* color */
+
+:root {
+  --bg-color: rgba(250, 230, 150, 0.3);
+  --seat-color: rgba(170, 120, 30, 0.4);
+  --bright-color: rgba(170, 120, 30, 0.2);
+  --black-seat-color: rgba(0, 0, 0, 0.6);
+  --effect-color: gold;
+}
+
+/* font */
 
 @font-face {
   font-family: "BMEuljiro10yearslater";
@@ -23,6 +45,14 @@ body {
   font-style: normal;
 }
 
+/* controller */
+
+.controller {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .title {
   font-size: 50px;
   margin: 20px;
@@ -30,47 +60,80 @@ body {
   white-space: nowrap;
 }
 
-#seat_cnt {
-  font-size: 45px;
+/* side popup */
+/* manual hint and all seats view */
+
+.side-popup {
+  position: fixed;
+  background-color: var(--effect-color);
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.6s;
+  width: 0px;
+  height: 50px;
+  left: 20px;
+  opacity: 0;
 }
 
-li {
-  list-style-type: none;
+.side_popup_top {
+  bottom: 80px;
 }
 
-.none {
-  display: none !important;
+.side_popup_bottom {
+  bottom: 25px;
 }
 
-.delete {
-  background-color: rgba(0, 0, 0, 0.5) !important;
+.show_side_popup {
+  width: 150px;
+  box-shadow: -1px -1px 1px 1px #999;
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.95);
 }
 
-.seat_btn,
-.manual_seat_btn {
-  border: none;
-  background: none;
-  font-size: 30px;
-  padding: 0;
-  transition: all 0.4s;
+.side-popup span,
+.side-popup i {
+  white-space: nowrap;
+  padding: 13px;
 }
 
-.random_num {
-  font-size: 30px;
-  transition: all 0.4s;
-}
-
-input[type="range"] {
-  width: 200px;
-}
+/* seat */
 
 #container {
-  margin: 5px;
+  margin: 0 5px;
   overflow: auto;
+  margin-bottom: 50px;
 }
 
 .line {
   display: flex;
+}
+
+.idx {
+  border: 1px solid rgba(0, 0, 0, 0) !important;
+  background-color: rgba(170, 120, 30, 0.2) !important;
+  border-radius: 4px;
+}
+
+.col_idx {
+  height: 20px !important;
+  margin: 0 3px !important;
+}
+
+.row_idx {
+  flex-grow: 0 !important;
+  flex-basis: 0 !important;
+  flex-shrink: 0 !important;
+  min-width: 20px !important;
+  margin: 3px 0 !important;
+}
+
+#yyj {
+  margin: 0 !important;
 }
 
 .seat {
@@ -79,8 +142,8 @@ input[type="range"] {
   flex-shrink: 0;
   min-width: 80px;
   height: 60px;
-  border: 1px solid rgba(0, 0, 0, 0.7);
-  background-color: rgba(170, 120, 30, 0.4);
+  border: 1px solid var(--black-seat-color);
+  background-color: var(--seat-color);
   margin: 3px;
   display: flex;
   justify-content: center;
@@ -88,13 +151,78 @@ input[type="range"] {
   transition: all 0.4s;
 }
 
-.btns {
-  margin-top: 15px;
+.viewAllSeats {
+  min-width: 0;
 }
 
-.scroll_btns {
-  display: flex;
-  justify-content: center;
+.viewAllSeats .random_num {
+  font-size: 6vmin;
+}
+
+#seat_cnt {
+  font-size: 45px;
+}
+
+.random_num {
+  font-size: 30px;
+  transition: all 0.4s;
+}
+
+/* js class */
+
+.none {
+  display: none !important;
+}
+
+.delete {
+  background-color: var(--black-seat-color) !important;
+}
+
+.btn-hover {
+  background-color: var(--bright-color) !important;
+  cursor: pointer;
+}
+
+.retry {
+  animation: retry 1s infinite;
+  transition: all 0.4s;
+}
+
+.change {
+  animation: change 0.5s;
+}
+
+/* controll */
+
+#num_input,
+#manual_num_input {
+  height: 20px;
+  background-color: #fff;
+  border-color: #fff;
+  border-radius: 4px;
+  margin-top: 10px;
+  padding-left: 5px;
+}
+
+.num_form,
+.manual_num_form {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.col_input,
+.row_input {
+  font-size: 17px;
+}
+
+input[type="range"] {
+  width: 200px;
+}
+
+/* button */
+
+.btns {
+  margin-top: 15px;
 }
 
 .btn:active {
@@ -105,12 +233,20 @@ input[type="range"] {
   outline: none;
 }
 
+.seat_btn,
+.manual_seat_btn,
+.yyj_btn {
+  border: none;
+  background: none;
+  font-size: 30px;
+  padding: 0;
+  transition: all 0.4s;
+}
+
 #del_btn,
 #num_btn,
 #manual_num_btn,
-#manual_del_btn,
-#chat_btn,
-#manual_btn {
+#manual_del_btn {
   font-family: "BMEuljiro10yearslater";
   font-size: 20px;
   padding: 10px;
@@ -127,27 +263,7 @@ input[type="range"] {
 #manual_num_btn:active,
 #manual_del_btn:active,
 #manual_pick_btn:active {
-  background-color: rgba(170, 120, 30, 0.2);
-}
-
-.num_form,
-.manual_num_form {
-  margin-top: 10px;
-  font-size: 18px;
-}
-
-#num_input,
-#manual_num_input {
-  height: 20px;
-  background-color: #fff;
-  border-color: #fff;
-  border-radius: 4px;
-  margin-top: 10px;
-}
-
-.col_input,
-.row_input {
-  font-size: 17px;
+  background-color: var(--bright-color);
 }
 
 #pick_btn,
@@ -165,52 +281,16 @@ input[type="range"] {
   white-space: nowrap;
 }
 
-.retry {
-  animation: retry 1s infinite;
-  transition: all 0.4s;
-}
-
-.change {
-  animation: change 0.5s;
-}
-
-.ad {
-  display: grid;
-  width: 700px;
-  height: 250px;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  margin: 0 auto;
-  transition: all 0.4s;
-}
-
-.ad_banner {
-  width: 320px;
-  margin: 0 auto;
-}
-
-#disqus_thread {
-  padding: 0 10px;
-}
-
-#manual_btn:active,
-#chat_btn:active {
-  background-color: gold;
-}
-
-#chat_btn,
-#manual_btn {
-  margin: 5px;
-}
+/* manual */
 
 #manual {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 95%;
-  margin: 0 auto;
-  border: 2px solid rgba(170, 120, 30, 0.8);
-  margin-top: 30px;
+  margin: 0 5px;
+  border: 3px solid var(--seat-color);
+  margin-top: 50px;
+  border-radius: 6px;
 }
 
 #manual ul {
@@ -244,8 +324,8 @@ input[type="range"] {
 .manual_seat {
   width: 150px;
   height: 60px;
-  border: 1px solid rgba(0, 0, 0, 0.7);
-  background-color: rgba(170, 120, 30, 0.4);
+  border: 1px solid var(--black-seat-color);
+  background-color: var(--seat-color);
   margin-top: 20px;
   transition: all 0.4s;
   display: flex;
@@ -253,29 +333,43 @@ input[type="range"] {
   align-items: center;
 }
 
-p {
-  font-size: 20px;
-}
+/* chat */
 
 #chat {
   margin-top: 50px;
 }
 
 .chat_title {
-  margin-bottom: 0;
   text-align: center;
+  margin-bottom: 10px;
 }
+
+#disqus_thread {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 6px;
+  background-color: var(--bright-color);
+}
+
+#disqus_thread a {
+  font-family: "BMEuljiro10yearslater";
+  color: black;
+}
+
+/* license */
 
 .copyright {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 10px 0;
+  margin-top: 50px;
 }
 
 .site-copyright,
 .font-copyright {
   text-align: center;
-  margin: 10px 0;
+  margin: 5px 0;
 }
 
 .font-copyright {
@@ -284,6 +378,23 @@ p {
 
 .cc-license {
   width: 100px;
+}
+
+/* ad */
+
+.ad {
+  display: grid;
+  width: 700px;
+  height: 250px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  margin: 0 auto;
+  transition: all 0.4s;
+}
+
+.ad_banner {
+  width: 320px;
+  margin: 0 auto;
 }
 
 .my-ad {
@@ -316,6 +427,8 @@ p {
   color: red;
 }
 
+/* left-right scroll */
+
 .lr-scroll {
   margin-top: 10px;
   display: flex;
@@ -324,27 +437,21 @@ p {
 
 .lr-scroll i {
   font-size: 30px;
+  padding: 5px;
 }
 
 .lr-scroll span {
   margin: 0 10px;
 }
 
-@media (max-width: 720px) {
-  .ad {
-    width: fit-content;
-    height: 500px;
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-  }
-}
+/* animation */
 
 @keyframes change {
   0% {
     color: black;
   }
   50% {
-    color: gold;
+    color: var(--effect-color);
   }
   100% {
     color: black;
@@ -356,7 +463,7 @@ p {
     color: black;
   }
   50% {
-    color: gold;
+    color: var(--effect-color);
   }
   100% {
     color: black;
@@ -368,7 +475,7 @@ p {
     color: black;
   }
   50% {
-    color: gold;
+    color: var(--effect-color);
   }
   100% {
     color: black;
@@ -381,7 +488,7 @@ p {
   }
 
   50% {
-    background-color: gold;
+    background-color: var(--effect-color);
   }
 
   100% {
@@ -395,7 +502,7 @@ p {
   }
 
   50% {
-    background-color: gold;
+    background-color: var(--effect-color);
   }
 
   100% {
@@ -409,7 +516,7 @@ p {
   }
 
   50% {
-    background-color: gold;
+    background-color: var(--effect-color);
   }
 
   100% {
@@ -417,12 +524,23 @@ p {
   }
 }
 
+/* media query */
+
+@media (max-width: 720px) {
+  .ad {
+    width: fit-content;
+    height: 500px;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+  }
+}
+
 @media (min-height: 950px) {
   .title {
-    font-size: 70px;
+    font-size: 60px;
   }
   #seat_cnt {
-    font-size: 63px;
+    font-size: 50px;
   }
   .col_input,
   .row_input,
@@ -436,15 +554,15 @@ p {
   #num_btn,
   #manual_num_btn,
   #manual_del_btn {
-    font-size: 30px;
+    font-size: 25px;
     margin-top: 20px;
-    padding: 15px;
+    padding: 10px;
   }
   #pick_btn,
   #manual_pick_btn {
-    width: 75px;
-    height: 75px;
-    font-size: 30px;
+    width: 60px;
+    height: 60px;
+    font-size: 25px;
   }
   p {
     font-size: 25px;
@@ -453,10 +571,10 @@ p {
 
 @media (min-height: 1250px) {
   .title {
-    font-size: 100px;
+    font-size: 90px;
   }
   #seat_cnt {
-    font-size: 90px;
+    font-size: 80px;
   }
   .col_input,
   .row_input,
@@ -470,15 +588,15 @@ p {
   #num_btn,
   #manual_num_btn,
   #manual_del_btn {
-    font-size: 40px;
+    font-size: 35px;
     margin-top: 20px;
     padding: 15px;
   }
   #pick_btn,
   #manual_pick_btn {
-    width: 100px;
-    height: 100px;
-    font-size: 40px;
+    width: 90px;
+    height: 90px;
+    font-size: 35px;
   }
   p {
     font-size: 30px;

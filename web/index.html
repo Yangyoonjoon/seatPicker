@@ -49,7 +49,7 @@
     />
     <meta
       name="keywords"
-      content="무작위 자리 뽑기, 랜덤 자리 뽑기, 랜덤자리뽑기, 자리뽑기, 번호뽑기, 우리반자리뽑기, 랜덤 뽑기, 숫자랜덤뽑기, 랜덤 번호 뽑기, 랜덤번호뽑기, 뽑기, 랜덤, 무작위, 학교, 학교 자리뽑기"
+      content="무작위 자리 뽑기, 랜덤 자리 뽑기, 랜덤자리뽑기, 자리뽑기, 자리 배치, 자리배치, 랜덤 자리 배치, 번호뽑기, 우리반자리뽑기, 랜덤 뽑기, 숫자랜덤뽑기, 랜덤 번호 뽑기, 랜덤번호뽑기, 뽑기, 랜덤, 무작위, 학교, 학교 자리뽑기"
     />
     <meta name="author" content="YYJ" />
     <meta property="og:url" content="https://seatpicker.netlify.app/" />
@@ -65,6 +65,16 @@
     <meta property="og:image" content="img/favicon.png" />
   </head>
   <body>
+    <div class="side-popup all_seats_view">
+      <span id="all_seats_view_btn">한눈에 보기</span>
+      <i class="fas fa-angle-left close_btn"></i>
+    </div>
+
+    <div class="side-popup manual_hint side_popup_bottom">
+      <span id="manual_btn">설명서 보기</span>
+      <i class="fas fa-angle-left close_btn"></i>
+    </div>
+
     <article class="controller">
       <h1 class="title">무작위 <span id="seat_cnt"></span>자리 뽑기</h1>
       <div class="col_input">
@@ -85,23 +95,18 @@
         />
       </div>
       <div class="btns">
-        <button id="num_btn" class="btn">번호 맞춤 설정</button>
-        <button id="del_btn" class="btn">없는 자리 설정</button>
-        <button id="pick_btn" class="btn">뽑기!</button>
+        <button id="num_btn" class="btn hbtn">번호 맞춤 설정</button>
+        <button id="del_btn" class="btn hbtn">없는 자리 설정</button>
+        <button id="pick_btn" class="btn hbtn">뽑기!</button>
       </div>
       <div class="lr-scroll">
-        <i class="fas fa-long-arrow-alt-left"></i>
+        <i class="fas fa-long-arrow-alt-left left_scroll_btn"></i>
         <span>좌우로 스크롤</span>
-        <i class="fas fa-long-arrow-alt-right"></i>
+        <i class="fas fa-long-arrow-alt-right right_scroll_btn"></i>
       </div>
     </article>
 
     <article id="container"></article>
-
-    <div class="scroll_btns btns">
-      <button id="chat_btn" class="btn">댓글, 의견, 피드백 달기</button>
-      <button id="manual_btn" class="btn">설명서</button>
-    </div>
 
     <!-- <br />
       <article class="ad">
@@ -144,7 +149,7 @@
       </article> -->
 
     <article class="my-ad">
-      <section class="jocoding">
+      <!-- <section class="jocoding">
         <h2>
           <a
             href="https://www.youtube.com/channel/UCQNE2JmbasNYbjGAcuBiRRg"
@@ -154,7 +159,7 @@
             조코딩 유튜브
           </a>
         </h2>
-      </section>
+      </section> -->
       <section class="nickname">
         <h2>
           <a href="https://nickname.netlify.app/" target="_blank">
@@ -165,7 +170,7 @@
       </section>
     </article>
 
-    <article id="manual">
+    <article id="manual" class="none">
       <h1 class="manual_title">사용 설명서</h1>
       <ul>
         <li>
@@ -193,6 +198,7 @@
             />
           </div>
         </li>
+        <hr />
         <li>
           <p>
             2. 번호 맞춤 설정 버튼을 눌러보세요! 원하는 번호를 설정할 수
@@ -203,7 +209,7 @@
             <span class="important">
               설정을 하지 않을 경우 번호는 1부터 자리 개수까지입니다.
               <br /><br />
-              0은 사용할 수 없습니다.
+              오름차순으로 입력해주세요.
             </span>
           </p>
           <div class="manual_num_form none">
@@ -215,25 +221,22 @@
               placeholder="예: 1-5, 8, 11-13"
             />
           </div>
-          <button id="manual_num_btn" class="btn">번호 맞춤 설정</button>
+          <button id="manual_num_btn" class="btn hbtn">번호 맞춤 설정</button>
         </li>
+        <hr />
         <li>
           <p>
             3. 없는 자리 설정 버튼을 눌러보세요! 모든 자리에 ❌ 표시가 생깁니다.
             <br />
             <br />
             ❌ 를 누르면 자리가 검정색으로 변합니다. 이는 없는 자리를 뜻합니다.
-            <br />
-            <br />
-            <span class="important"
-              >설정 후에는 완료 버튼을 꼭 눌러주세요.</span
-            >
           </p>
-          <button id="manual_del_btn" class="btn">없는 자리 설정</button>
+          <button id="manual_del_btn" class="btn hbtn">없는 자리 설정</button>
           <div class="manual_seat">
             <button class="manual_seat_btn btn none">❌</button>
           </div>
         </li>
+        <hr />
         <li>
           <p>
             4. 설정을 완료하였으면 뽑기 버튼을 눌러보세요!
@@ -241,7 +244,7 @@
             <br />
             3초 뒤 무작위로 자리에 번호가 적혀있을 거예요.
           </p>
-          <button id="manual_pick_btn" class="btn">뽑기!</button>
+          <button id="manual_pick_btn" class="btn hbtn">뽑기!</button>
         </li>
       </ul>
     </article>
